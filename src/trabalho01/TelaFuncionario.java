@@ -10,5 +10,9 @@ package trabalho01;
  * @author Guilherme
  */
 public class TelaFuncionario {
+
+    public void exibeTela() {
+        
+    }
     
 }
