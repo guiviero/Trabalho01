@@ -8,12 +8,17 @@ package trabalho01;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+import trabalho01.ControladorFuncionario;
 /**
  *
  * @author Guilherme
  */
 public class ControladorCargo {
+    
+    private ControladorFuncionario ctrlFuncionario;
     private ArrayList<Cargo> cargos;
+    private int ultimoCodigo = 100;
     
     public void inserirCargo(Cargo cargo) {
         try {
@@ -25,16 +30,35 @@ public class ControladorCargo {
 	this.cargos.add(cargo);
     }
     
-    public void alterarNivelCargoPeloCodigo (int codigoCargo) {
-        
+    public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO) {
+        int codigo = gerarCodigo();
+	Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
+	this.cargos.add(novoCargo);
     }
     
-    public void buscarCargoPeloCodigo (int codigoCargo) {
-        
+    public Cargo buscarCargoPeloCodigo (int codigoCargo){
+        for(Cargo cargo : cargos){
+            if(cargo.getCodigo() == codigoCargo){
+                return cargo;
+            }
+        }
+        return null;
     }
     
-    public void deletarCargoPeloCodigo (int codigoCargo) {
+    public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException{
+        ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
+        listaFuncionarios = ctrlFuncionario.getFuncionarios();
+        for(Funcionario func : listaFuncionarios){
+            if(func.getCargo().getCodigo() == codigoCargo){
+                throw new FuncionarioComCargoException("Existe Funcionarios com esse cargo");
+            }
+        }
         
+        for(Cargo cargo : cargos){
+            if(cargo.getCodigo() == codigoCargo){
+                cargos.remove(cargo);
+            }
+        }        
     }
     
     public ArrayList<Cargo> listarCargos() {
@@ -47,5 +71,11 @@ public class ControladorCargo {
 		throw new CadastroIncorretoException("Codigo existente!");
             }
 	}
+    }
+    
+    public int gerarCodigo() {
+        int novoCodigo = this.ultimoCodigo++;
+        this.ultimoCodigo = novoCodigo;
+        return novoCodigo;
     }
 }

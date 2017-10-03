@@ -19,7 +19,7 @@ public class ControladorAcesso {
     }
     
     public ArrayList<Acesso> listarAcessos() {
-        
+        return this.acessos;
     }
     
     public ArrayList<Acesso> listarAcessosNegados() {

@@ -14,8 +14,9 @@ import java.util.Date;
  */
 public class ControladorFuncionario {
     
-    private ArrayList<Funcionario> funcionarios;
-
+    private static ArrayList<Funcionario> funcionarios;
+    private int ultimaMatricula = 10000;
+    
     public ControladorFuncionario() {
         
     }
@@ -30,14 +31,9 @@ public class ControladorFuncionario {
 	this.funcionarios.add(funcionario);
     }
     
-    public void cadastraFuncionario(int matricula, String nome, Date nascimento, int telefone, double salario, Cargo cargo, int cpf, int errosAcesso) {
-	try {
-            this.verificaMatricula(matricula);
-	} catch (CadastroIncorretoException e) {
-            System.out.println("Funcionario Existente");
-            return;
-        }
-
+    public void cadastraFuncionario(String nome, Date nascimento, int telefone, double salario, Cargo cargo, int cpf) {
+	int errosAcesso = 0;
+        int matricula = gerarMatricula();
 	Funcionario novoFuncionario = new Funcionario(matricula, nome, nascimento, telefone, salario, cargo, cpf, errosAcesso);
 	this.funcionarios.add(novoFuncionario);
     }
@@ -73,11 +69,24 @@ public class ControladorFuncionario {
     }
     
     public void verificaMatricula(int matricula) throws CadastroIncorretoException {
-		for (Funcionario funcionario : this.funcionarios) {
-			if (funcionario.getMatricula() == matricula) {
-				throw new CadastroIncorretoException("matricula existente!");
-			}
-		}
+	for (Funcionario funcionario : this.funcionarios) {
+            if (funcionario.getMatricula() == matricula) {
+		throw new CadastroIncorretoException("matricula existente!");
+            }
+	}
     }
     
+    public int gerarMatricula() {
+        int novaMatricula = this.ultimaMatricula++;
+        this.ultimaMatricula = novaMatricula;
+        return novaMatricula;
+    }
+    
+    public ArrayList<Funcionario> getFuncionarios(){
+        return this.funcionarios;
+    }
+
+    public void exibeTelaFuncionario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
