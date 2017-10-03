@@ -16,6 +16,7 @@ public class ControladorFuncionario {
     
     private static ArrayList<Funcionario> funcionarios;
     private int ultimaMatricula = 10000;
+    private TelaFuncionario tela;
     
     public ControladorFuncionario() {
         
@@ -87,6 +88,6 @@ public class ControladorFuncionario {
     }
 
     public void exibeTelaFuncionario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tela.exibeTela();
     }
 }
