@@ -23,10 +23,20 @@ public class ControladorAcesso {
     }
     
     public ArrayList<Acesso> listarAcessosNegados() {
-        
+        ArrayList<Acesso> acessosNegados = new ArrayList<>();
+        for (Acesso acesso: acessos){
+            if(acesso.isConseguiuAcessar() == false){
+                acessosNegados.add(acesso);
+            }
+        }
+        return acessosNegados;
     }
     
     public ArrayList<Acesso> listarAcessosNegadosMatriculaInexistente() {
+        ArrayList<Acesso> acessosNegadosMatriculaInexistente = new ArrayList<>();
+        for(Acesso acesso: acessos){
+            if(acesso)
+        }
         
     }
     

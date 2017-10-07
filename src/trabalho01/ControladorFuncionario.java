@@ -40,10 +40,8 @@ public class ControladorFuncionario {
     }
     
     public void alterarCargoFuncionarioPelaMatricula (int matriculaFuncionario, Cargo cargo) {
-        
-        // Perguntar se precisa do != cargo
         for (Funcionario funcionario : this.funcionarios){
-            if (funcionario.getMatricula() == matriculaFuncionario && funcionario.getCargo() != cargo){
+            if (funcionario.getMatricula() == matriculaFuncionario){
                 funcionario.setCargo(cargo);
                 break;
             }
