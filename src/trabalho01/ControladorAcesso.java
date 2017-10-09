@@ -13,8 +13,9 @@ import java.util.ArrayList;
  */
 public class ControladorAcesso {
     private ArrayList<Acesso> acessos;
+    private ControladorCargo ctrlCargo;
     
-    public void tentativaDeAcesso (int codigoFuncionario) {
+    public void tentativaDeAcesso(int codigoFuncionario) {
         
     }
     
@@ -34,23 +35,42 @@ public class ControladorAcesso {
     
     public ArrayList<Acesso> listarAcessosNegadosMatriculaInexistente() {
         ArrayList<Acesso> acessosNegadosMatriculaInexistente = new ArrayList<>();
-        for(Acesso acesso: acessos){
-            if(acesso)
+        for(Acesso acessoRef: acessos){
+            if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.MATRICULAINEXISTENTE)){
+                acessosNegadosMatriculaInexistente.add(acessoRef);
+            }
         }
-        
+        return acessosNegadosMatriculaInexistente;
     }
     
     public ArrayList<Acesso> listarAcessosNegadosSemAcesso() {
-        
+      ArrayList<Acesso> acessosNegadosSemAcessos = new ArrayList<>();
+        for(Acesso acessoRef: acessos){
+            if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.SEMACESSO)){
+                acessosNegadosSemAcessos.add(acessoRef);
+            }
+        }
+        return acessosNegadosSemAcessos;
     }
     
     public ArrayList<Acesso> listarAcessosNegadosHorarioNaoPermitido() {
-        
+        ArrayList<Acesso> acessosNegadosHorarioNaoPermitido = new ArrayList<>();
+        for(Acesso acessoRef: acessos){
+            if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.HORARIONAOPERMITIDO)){
+                acessosNegadosHorarioNaoPermitido.add(acessoRef);
+            }
+        }
+        return acessosNegadosHorarioNaoPermitido;
     }
     
     public ArrayList<Acesso> listarAcessosNegadosAcessoBloqueado() {
-        
+        ArrayList<Acesso> acessosBloqueados = new ArrayList<>();
+        for(Acesso acessoRef: acessos){
+            if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.ACESSOBLOQUEADO)){
+                acessosBloqueados.add(acessoRef);
+            }
+        }
+        return acessosBloqueados;
     }
-    
     
 }

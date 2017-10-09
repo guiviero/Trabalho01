@@ -17,11 +17,10 @@ public class Acesso {
     private boolean conseguiuAcessar;
     private MotivoAcessoNegado motivoNaoAcesso;
 
-    public Acesso(Date horarioDeAcesso, Funcionario funcionario, boolean conseguiuAcessar, MotivoAcessoNegado motivoNaoAcesso) {
+    public Acesso(Date horarioDeAcesso, Funcionario funcionario, boolean conseguiuAcessar) {
         this.horarioDeAcesso = horarioDeAcesso;
         this.funcionario = funcionario;
         this.conseguiuAcessar = conseguiuAcessar;
-        this.motivoNaoAcesso = motivoNaoAcesso;
     }
 
     public Date getHorarioDeAcesso() {
@@ -46,6 +45,14 @@ public class Acesso {
 
     public void setConseguiuAcessar(boolean conseguiuAcessar) {
         this.conseguiuAcessar = conseguiuAcessar;
+    }
+
+    public MotivoAcessoNegado getMotivoNaoAcesso() {
+        return motivoNaoAcesso;
+    }
+
+    public void setMotivoNaoAcesso(MotivoAcessoNegado motivoNaoAcesso) {
+        this.motivoNaoAcesso = motivoNaoAcesso;
     }
     
     

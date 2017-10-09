@@ -15,7 +15,8 @@ public class Cargo implements ICargo {
     private String nomeCargo;
     private NivelAcesso NIVELACESSO;
     private int codigo;
-    private Date horario;
+    private Date horarioInicio;
+    private Date horarioFinal;
 
     public Cargo(String nomeCargo, int codigo, NivelAcesso NIVELACESSO) {
         this.nomeCargo = nomeCargo;

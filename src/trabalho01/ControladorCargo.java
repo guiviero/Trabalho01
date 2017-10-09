@@ -5,8 +5,10 @@
  */
 package trabalho01;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 
 import trabalho01.ControladorFuncionario;
@@ -25,7 +27,7 @@ public class ControladorCargo {
             this.verificaCodigo(cargo.getCodigo());
         } catch (CadastroIncorretoException e) {
             System.out.println("Cargo Existente");
-            return;
+            //return;
         }
 	this.cargos.add(cargo);
     }
@@ -33,7 +35,19 @@ public class ControladorCargo {
     public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO) {
         int codigo = gerarCodigo();
 	Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
-	this.cargos.add(novoCargo);
+        if(NIVELACESSO.equals(NivelAcesso.ESPECIAL)){
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Digite a hora inicial: (Horas:Minutos)");
+            String horarioInicio = sc.nextLine();
+            
+            System.out.print("Digite a hora final: (Horas:Minutos)");
+            String horarioFinal = sc.nextLine();
+        }
+        for(Cargo cargoRef : cargos){
+            if(!(novoCargo.getNomeCargo().equalsIgnoreCase(cargoRef.getNomeCargo())) || novoCargo.getCodigo() != cargoRef.getCodigo()){
+                this.cargos.add(novoCargo);
+            }
+        }
     }
     
     public Cargo buscarCargoPeloCodigo (int codigoCargo){
@@ -77,5 +91,10 @@ public class ControladorCargo {
         int novoCodigo = this.ultimoCodigo++;
         this.ultimoCodigo = novoCodigo;
         return novoCodigo;
+    }
+    
+    public Date converterHora(String time){
+        
+        return null;
     }
 }
