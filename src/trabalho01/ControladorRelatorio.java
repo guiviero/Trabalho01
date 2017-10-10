@@ -10,5 +10,8 @@ package trabalho01;
  * @author Guilherme
  */
 public class ControladorRelatorio {
+
+    void exibeTelaRelatorio() {
+    }
     
 }

@@ -12,11 +12,9 @@ import java.util.Scanner;
  * @author Guilherme
  */
 public class TelaPrincipal {
-    private final ControladorPrincipal owner;
     private Scanner sc;
     
-    public TelaPrincipal(ControladorPrincipal owner) {
-        this.owner = owner;
+    public TelaPrincipal() {
         this.sc = new Scanner(System.in);
     }
     

@@ -22,6 +22,8 @@ public class Cargo implements ICargo {
         this.nomeCargo = nomeCargo;
         this.codigo = codigo;
         this.NIVELACESSO = NIVELACESSO;
+        this.horarioInicio = null;
+        this.horarioFinal = null;
     }
 
     public String getNomeCargo() {
@@ -46,6 +48,22 @@ public class Cargo implements ICargo {
 
     public void setNIVELACESSO(NivelAcesso NIVELACESSO) {
         this.NIVELACESSO = NIVELACESSO;
+    }
+    
+    public Date getHorarioInicio() {
+        return horarioInicio;
+    }
+
+    public void setHorarioInicio(Date horarioInicio) {
+        this.horarioInicio = horarioInicio;
+    }
+
+    public Date getHorarioFinal() {
+        return horarioFinal;
+    }
+
+    public void setHorarioFinal(Date horarioFinal) {
+        this.horarioFinal = horarioFinal;
     }
 
 }

@@ -16,6 +16,12 @@ public class ControladorPrincipal {
     private ControladorCargo ctrlCargo;
     private ControladorAcesso ctrlAcesso;
     private ControladorRelatorio ctrlRelatorio;
+    private TelaPrincipal tela;
+    
+    private ControladorPrincipal (){
+        this.tela = new TelaPrincipal();
+    }
+    
     
     public static ControladorPrincipal getInstance() {
         if(instance == null) {
@@ -29,15 +35,19 @@ public class ControladorPrincipal {
         ctrlFuncionario.exibeTelaFuncionario();
     }
 
-    void exibeTelaCargo() {
+    public void exibeTelaCargo() {
         ctrlCargo.exibeTelaCargo();
     }
 
-    void exibeTelaAcesso() {
+    public void exibeTelaAcesso() {
         ctrlAcesso.exibeTelaAcesso();
     }
 
-    void exibeTelaRelatório() {
+    public void exibeTelaRelatório() {
         ctrlRelatorio.exibeTelaRelatorio();
+    }
+    
+    public void iniciar() {
+        tela.exibirTela();
     }
 }

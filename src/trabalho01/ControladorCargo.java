@@ -5,6 +5,7 @@
  */
 package trabalho01;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,8 +94,13 @@ public class ControladorCargo {
         return novoCodigo;
     }
     
-    public Date converterHora(String time){
-        
-        return null;
+    public Date converterHora(String hora) throws ParseException{
+        SimpleDateFormat horaSimples = new SimpleDateFormat("HH:mm");
+        Date horaConvertida = horaSimples.parse(hora);
+        return horaConvertida;
+    }
+
+    void exibeTelaCargo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
