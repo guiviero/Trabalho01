@@ -23,7 +23,7 @@ public class TelaPrincipal {
         do{
             System.out.println("\nBem vindo ao sistema!");;
             System.out.println("-----------------------------------");
-            System.out.println("1 - Menu de FuncionarioS");
+            System.out.println("1 - Menu de Funcionarios");
             System.out.println("2 - Menu de Cargos");
             System.out.println("3 - Menu de Acesso");
             System.out.println("4 - Menu de Relatórios");            

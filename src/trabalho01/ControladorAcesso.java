@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class ControladorAcesso {
     private ArrayList<Acesso> acessos;
     private ControladorCargo ctrlCargo;
+    private TelaAcesso tela;
     
     public void tentativaDeAcesso(int codigoFuncionario) {
         
@@ -74,7 +75,7 @@ public class ControladorAcesso {
     }
 
     void exibeTelaAcesso() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tela.exibeTela();
     }
     
 }

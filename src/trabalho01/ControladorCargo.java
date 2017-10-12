@@ -22,6 +22,7 @@ public class ControladorCargo {
     private ControladorFuncionario ctrlFuncionario;
     private ArrayList<Cargo> cargos;
     private int ultimoCodigo = 100;
+    private TelaCargo tela;
     
     public void inserirCargo(Cargo cargo) {
         try {
@@ -109,6 +110,6 @@ public class ControladorCargo {
     }
 
     public void exibeTelaCargo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tela.exibeTela();
     }
 }

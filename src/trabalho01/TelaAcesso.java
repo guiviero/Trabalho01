@@ -11,14 +11,16 @@ import java.util.Scanner;
  *
  * @author Guilherme
  */
-public class ControladorRelatorio {
-    private TelaRelatorio tela;
+public class TelaAcesso {
+    private Scanner sc;
     
-    public ControladorRelatorio() {
+    
+    public TelaAcesso(){
+        this.sc = new Scanner(System.in);
     }
+    
+    public void exibeTela() {
         
-    public void exibeTelaRelatorio() {
-        tela.exibeTela();
     }
-
+    
 }
