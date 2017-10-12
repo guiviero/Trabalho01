@@ -19,7 +19,7 @@ public class ControladorAcesso {
         
     }
     
-    public ArrayList<Acesso> listarAcessos() {
+    public ArrayList<Acesso> getAcessos() {
         return this.acessos;
     }
     

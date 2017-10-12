@@ -19,7 +19,8 @@ public class ControladorFuncionario {
     private TelaFuncionario tela;
     
     public ControladorFuncionario() {
-        
+        this.funcionarios = new ArrayList<>();
+        this.tela = new TelaFuncionario();
     }
     
     public void inserirFuncionario(Funcionario funcionario) {
@@ -32,7 +33,7 @@ public class ControladorFuncionario {
 	this.funcionarios.add(funcionario);
     }
     
-    public void cadastraFuncionario(String nome, Date nascimento, int telefone, double salario, Cargo cargo, int cpf) {
+    public void cadastrarFuncionario(String nome, Date nascimento, int telefone, double salario, Cargo cargo, int cpf) {
 	int errosAcesso = 0;
         int matricula = gerarMatricula();
 	Funcionario novoFuncionario = new Funcionario(matricula, nome, nascimento, telefone, salario, cargo, cpf, errosAcesso);
@@ -63,9 +64,6 @@ public class ControladorFuncionario {
 	}
     }
     
-    public ArrayList<Funcionario> listarFuncionarios() {
-        return this.funcionarios;
-    }
     
     public void verificaMatricula(int matricula) throws CadastroIncorretoException {
 	for (Funcionario funcionario : this.funcionarios) {

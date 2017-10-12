@@ -60,6 +60,14 @@ public class ControladorCargo {
         return null;
     }
     
+    public void alterarNomeCargoPeloCodigo (String novoNomeCargo, int codigoCargo){
+        for(Cargo cargoRef : cargos){
+            if(cargoRef.getCodigo() == codigoCargo){
+                cargoRef.setNomeCargo(novoNomeCargo);
+            }
+        }
+    }
+    
     public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException{
         ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
         listaFuncionarios = ctrlFuncionario.getFuncionarios();
@@ -76,7 +84,7 @@ public class ControladorCargo {
         }        
     }
     
-    public ArrayList<Cargo> listarCargos() {
+    public ArrayList<Cargo> getCargos() {
         return this.cargos;
     } 
 
@@ -100,7 +108,7 @@ public class ControladorCargo {
         return horaConvertida;
     }
 
-    void exibeTelaCargo() {
+    public void exibeTelaCargo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
