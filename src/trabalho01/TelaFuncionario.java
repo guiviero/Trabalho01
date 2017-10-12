@@ -6,6 +6,7 @@
 package trabalho01;
 
 
+import java.util.Date;
 import java.util.Scanner;
 /**
  *
@@ -14,10 +15,12 @@ import java.util.Scanner;
 public class TelaFuncionario {
 
     private Scanner sc;
+    private ControladorFuncionario ctrlFunc;
     
     
     public TelaFuncionario(){
         this.sc = new Scanner(System.in);
+        this.ctrlFunc = new ControladorFuncionario();
     }
     
     public void exibeTela() {
@@ -39,7 +42,43 @@ public class TelaFuncionario {
     }
     
     public void trataOpcao(int opcao){
+        switch(opcao){
+        case 1:
+            System.out.println("Digite o nome do Funcionario");
+            String nome = sc.nextLine();
+            
+            System.out.println("Digite a data de nascimento do Funcionario");
+            String dataNascimento = sc.nextLine();
+            
+            System.out.println("Digite o telefone do Funcionario");
+            int telefone = sc.nextInt();
+            
+            System.out.println("Digite o salario do Funcionario");
+            double salario = sc.nextDouble();
+            
+            System.out.println("Digite o cargo do Funcionario");
+            Cargo cargo;
+            
+            System.out.println("Digite o cpf do Funcionario");
+            int cpf = sc.nextInt();
+            
+            ctrlFunc.cadastrarFuncionario(nome, dataNascimento, telefone, salario, cargo, cpf);
+            break;
         
+        case 2:
+            System.out.println("Digite a matricula do Funcionario que deseja alterar o Cargo");
+            int matricula = sc.nextInt();
+            ctrlFunc.alterarCargoFuncionarioPelaMatricula(matricula, cargo);
+            break;
+        case 3:
+            ControladorPrincipal.getInstance().exibeTelaAcesso();
+            break;
+        case 4:
+            ControladorPrincipal.getInstance().exibeTelaRelatório();
+            break;
+        default:
+            break;
+        }
     }
 }
     

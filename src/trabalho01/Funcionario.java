@@ -14,14 +14,14 @@ import java.util.Date;
 public class Funcionario {
     private int matricula;
     private String nome;
-    private Date nascimento;
+    private String nascimento;
     private int telefone;
     private double salario;
     private Cargo cargo;
     private int cpf;
     private int errosAcesso;
 
-    public Funcionario(int matricula, String nome, Date nascimento, int telefone, double salario, Cargo cargo, int cpf, int errosAcesso) {
+    public Funcionario(int matricula, String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf, int errosAcesso) {
         this.matricula = matricula;
         this.nome = nome;
         this.nascimento = nascimento;

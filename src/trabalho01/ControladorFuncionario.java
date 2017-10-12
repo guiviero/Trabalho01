@@ -33,7 +33,7 @@ public class ControladorFuncionario {
 	this.funcionarios.add(funcionario);
     }
     
-    public void cadastrarFuncionario(String nome, Date nascimento, int telefone, double salario, Cargo cargo, int cpf) {
+    public void cadastrarFuncionario(String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf) {
 	int errosAcesso = 0;
         int matricula = gerarMatricula();
 	Funcionario novoFuncionario = new Funcionario(matricula, nome, nascimento, telefone, salario, cargo, cpf, errosAcesso);
