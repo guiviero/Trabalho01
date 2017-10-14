@@ -20,4 +20,8 @@ public enum NivelAcesso {
     NivelAcesso(String descricao) {
         this.descricao = descricao;
     }
+    
+    public String getNivelAcesso(){
+        return descricao;
+    }
 }

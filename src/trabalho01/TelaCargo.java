@@ -22,10 +22,7 @@ public class TelaCargo {
 	this.owner = owner;
 	this.sc = new Scanner(System.in);
     }
-    
-    
-   
-    
+        
     public void exibeTela() throws CadastroIncorretoException{
         int opcao = 0;        
         do{
@@ -131,10 +128,10 @@ public class TelaCargo {
 			String nomeCargo = this.sc.next();
                         
                         System.out.println("\nInsira o nível do cargo");
-			System.out.println("0.Livre");
-			System.out.println("1.Especial");
-                        System.out.println("2.Comum");
-                        System.out.println("3.Nulo");
+			System.out.println("0. Livre:" + NivelAcesso.LIVRE.getNivelAcesso());
+			System.out.println("1. Especial" + NivelAcesso.ESPECIAL.getNivelAcesso());
+                        System.out.println("2. Comum" + NivelAcesso.COMUM.getNivelAcesso());
+                        System.out.println("3. Nulo" + NivelAcesso.NULO.getNivelAcesso());
 
 			int selecaoNivel = this.sc.nextInt();
 			NivelAcesso NIVELACESSO = NivelAcesso.COMUM;
@@ -155,18 +152,9 @@ public class TelaCargo {
 			
 			String opt = "";
 
-			while (!opt.equals("N") && NIVELACESSO != NivelAcesso.LIVRE && NIVELACESSO != NivelAcesso.NULO) {
-				System.out.println("Quer adicionar um horário que o cargo pode realizar?");
-				System.out.println("Digite 'S' para Sim");
-				System.out.println("Digite 'N' para Não");
-				opt = this.sc.next();
-				if (opt.equals("N")) {
-					break;
-				}
-				System.out.println("Digite a hora inicial: (Horas:Minutos)");
-				opt = this.sc.next();
-                                System.out.println("Digite a hora final: (Horas:Minutos)");
-                                opt = this.sc.next();
+			while (!opt.equals("N") && NIVELACESSO == NivelAcesso.ESPECIAL) {
+				
+				
 				Veiculo v = this.owner.pegaVeiculo(opt);
 				if (v != null) {
 					tiposDeVeiculo.add(v);
@@ -186,5 +174,14 @@ public class TelaCargo {
     public void exibeCargo(Cargo cargo) {
 		System.out.println("-----------------------------");
 		System.out.println("Nome do cargo: " + cargo.getNomeCargo() + " \nNumero do codigo: " + cargo.getCodigo());
+    }
+    
+    public void horariosEspeciais(){
+        String horarioInicial = "";
+        System.out.println("Digite a hora inicial: (Horas:Minutos)");
+        hora = this.sc.next();
+        String horarioFinal = "";
+        System.out.println("Digite a hora final: (Horas:Minutos)");
+        opt = this.sc.next();
     }
 }
