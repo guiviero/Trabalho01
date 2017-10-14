@@ -22,7 +22,22 @@ public class ControladorCargo {
     private ControladorFuncionario ctrlFuncionario;
     private ArrayList<Cargo> cargos;
     private int ultimoCodigo = 100;
-    private TelaCargo tela;
+    private TelaCargo telaCargo;
+    private static ControladorCargo instance;
+    
+    
+    private ControladorCargo() {
+		this.cargos = new ArrayList<>();
+		this.telaCargo = new TelaCargo(this);
+	}
+    
+     public static ControladorCargo getInstance() {
+		if (instance == null) {
+			instance = new ControladorCargo();
+		}
+
+		return instance;
+	}
     
     public void inserirCargo(Cargo cargo) {
         try {
@@ -37,19 +52,29 @@ public class ControladorCargo {
     public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO) {
         int codigo = gerarCodigo();
 	Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
-        if(NIVELACESSO.equals(NivelAcesso.ESPECIAL)){
+      /*  if(NIVELACESSO.equals(NivelAcesso.ESPECIAL)){
             Scanner sc = new Scanner(System.in);
             System.out.print("Digite a hora inicial: (Horas:Minutos)");
             String horarioInicio = sc.nextLine();
             
             System.out.print("Digite a hora final: (Horas:Minutos)");
             String horarioFinal = sc.nextLine();
-        }
+       } */
         for(Cargo cargoRef : cargos){
             if(!(novoCargo.getNomeCargo().equalsIgnoreCase(cargoRef.getNomeCargo())) || novoCargo.getCodigo() != cargoRef.getCodigo()){
                 this.cargos.add(novoCargo);
             }
         }
+    }
+    
+    public void exibeCargos() {
+            if (this.cargos.isEmpty()) {
+                this.telaCargo.mensagemNaoHaCargos();
+                return;
+            }
+            for (Cargo cargo : this.cargos) {
+                this.telaCargo.exibeCargo(cargo);
+            }
     }
     
     public Cargo buscarCargoPeloCodigo (int codigoCargo){
@@ -67,6 +92,14 @@ public class ControladorCargo {
                 cargoRef.setNomeCargo(novoNomeCargo);
             }
         }
+    }
+    
+    public boolean haCargos() {
+	if (this.cargos.isEmpty()) {
+		this.telaCargo.mensagemNaoHaCargos();
+		return false;
+	}
+	return true;
     }
     
     public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException{
@@ -110,6 +143,6 @@ public class ControladorCargo {
     }
 
     public void exibeTelaCargo() {
-        tela.exibeTela();
+        telaCargo.exibeTela();
     }
 }

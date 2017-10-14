@@ -57,7 +57,7 @@ public class TelaFuncionario {
             double salario = sc.nextDouble();
             
             System.out.println("Digite o cargo do Funcionario");
-            Cargo cargo;
+            Cargo cargo = null;
             
             System.out.println("Digite o cpf do Funcionario");
             int cpf = sc.nextInt();

@@ -14,7 +14,7 @@ import java.util.Date;
 public class Funcionario {
     private int matricula;
     private String nome;
-    private String nascimento;
+    private Date nascimento;
     private int telefone;
     private double salario;
     private Cargo cargo;
