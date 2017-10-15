@@ -5,6 +5,8 @@
  */
 package trabalho01;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,9 +21,16 @@ public class ControladorFuncionario {
     private TelaFuncionario tela;
     private static ControladorFuncionario instance;
     
-    public ControladorFuncionario() {
+    private ControladorFuncionario() {
         this.funcionarios = new ArrayList<>();
         this.tela = new TelaFuncionario();
+    }
+    
+    public static ControladorFuncionario getInstance() {
+        if(instance == null) {
+            instance = new ControladorFuncionario();
+        }
+        return instance;
     }
     
     public void inserirFuncionario(Funcionario funcionario) {
@@ -37,8 +46,10 @@ public class ControladorFuncionario {
     public void cadastrarFuncionario(String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf) {
 	int errosAcesso = 0;
         int matricula = gerarMatricula();
-	Funcionario novoFuncionario = new Funcionario(matricula, nome, nascimento, telefone, salario, cargo, cpf, errosAcesso);
-	this.funcionarios.add(novoFuncionario);
+        if(cargo != null){
+            Funcionario novoFuncionario = new Funcionario(matricula, nome, nascimento, telefone, salario, cargo, cpf, errosAcesso);
+            this.funcionarios.add(novoFuncionario);
+        }
     }
     
     public void alterarCargoFuncionarioPelaMatricula (int matriculaFuncionario, Cargo cargo) {
@@ -83,16 +94,15 @@ public class ControladorFuncionario {
     public ArrayList<Funcionario> getFuncionarios(){
         return this.funcionarios;
     }
+    
+    public Date converterData(String dataNascimento) throws ParseException{
+        SimpleDateFormat dataSimples = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataConvertida = dataSimples.parse(dataNascimento);
+        return dataConvertida;
+    }
 
     public void exibeTelaFuncionario() {
         tela.exibeTela();
     }
     
-    public static ControladorFuncionario getInstance() {
-        if(instance == null) {
-            instance = new ControladorFuncionario();
-        }
-        
-        return instance;
-    }
 }

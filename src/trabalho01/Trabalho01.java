@@ -18,6 +18,9 @@ public class Trabalho01 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        /* Eu pensei em iniciar o programa pedindo o horario do sistema*/
+        //ControladorAcesso.getInstance().horarioDoSistema();
         ControladorPrincipal.getInstance().exibeTelaPrincipal();
     }
     

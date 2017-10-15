@@ -30,7 +30,7 @@ public class ControladorCargo {
         this.telaCargo = new TelaCargo();
     }
     
-     public static ControladorCargo getInstance() {
+    public static ControladorCargo getInstance() {
 	if (instance == null) {
             instance = new ControladorCargo();
         }
@@ -38,7 +38,7 @@ public class ControladorCargo {
         return instance;
     }
     
-    public void inserirCargo(Cargo cargo) {
+    /*public void inserirCargo(Cargo cargo) {
         try {
             this.verificaCodigo(cargo.getCodigo());
         } catch (CadastroIncorretoException e) {
@@ -46,19 +46,11 @@ public class ControladorCargo {
             //return;
         }
 	this.cargos.add(cargo);
-    }
+    }*/
     
     public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO) {
         int codigo = gerarCodigo();
-	Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
-      /*  if(NIVELACESSO.equals(NivelAcesso.ESPECIAL)){
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Digite a hora inicial: (Horas:Minutos)");
-            String horarioInicio = sc.nextLine();
-            
-            System.out.print("Digite a hora final: (Horas:Minutos)");
-            String horarioFinal = sc.nextLine();
-       } */
+        Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
         for(Cargo cargoRef : cargos){
             if(!(novoCargo.getNomeCargo().equalsIgnoreCase(cargoRef.getNomeCargo())) || novoCargo.getCodigo() != cargoRef.getCodigo()){
                 this.cargos.add(novoCargo);
@@ -67,13 +59,13 @@ public class ControladorCargo {
     }
     
     public void exibeCargos() {
-            if (this.cargos.isEmpty()) {
-                this.telaCargo.mensagemNaoHaCargos();
-                return;
-            }
-            for (Cargo cargo : this.cargos) {
-                this.telaCargo.exibeCargo(cargo);
-            }
+        if (this.cargos.isEmpty()) {
+            this.telaCargo.mensagemNaoHaCargos();
+            return;
+        }
+        for (Cargo cargo : this.cargos) {
+             this.telaCargo.exibeCargo(cargo);
+        }
     }
     
     public Cargo buscarCargoPeloCodigo (int codigoCargo){
@@ -121,13 +113,13 @@ public class ControladorCargo {
         return this.cargos;
     } 
 
-    private void verificaCodigo(int codigo)throws CadastroIncorretoException {
+    /*private void verificaCodigo(int codigo)throws CadastroIncorretoException {
         for (Cargo cargo : this.cargos) {
             if (cargo.getCodigo() == codigo) {
 		throw new CadastroIncorretoException("Codigo existente!");
             }
 	}
-    }
+    }*/
     
     public int gerarCodigo() {
         int novoCodigo = this.ultimoCodigo++;

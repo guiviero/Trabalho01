@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class TelaRelatorio {
     private Scanner sc;
-    private ControladorRelatorio ctrlRelatorio;
+    private ControladorRelatorio owner;
     
     
     public TelaRelatorio(){
@@ -23,7 +23,7 @@ public class TelaRelatorio {
     public void exibeTela() {
         int opcao = 0;        
         do{
-            System.out.println("\nBem vindo a tela de relatórios!");;
+            System.out.println("\nBem vindo a tela de relatórios!");
             System.out.println("-----------------------------------");
             System.out.println("1 - Lista com todos os funcionários");
             System.out.println("2 - Lista com todos os cargos");
@@ -43,13 +43,13 @@ public class TelaRelatorio {
     private void trataOpcao(int opcao) {
         switch(opcao){
         case 1:
-            ctrlRelatorio.listarFuncionarios();
+            owner.listarFuncionarios();
             break;
         case 2:
-            ctrlRelatorio.listarCargos();
+            owner.listarCargos();
             break;
         case 3:
-            ctrlRelatorio.listarAcessos();
+            owner.listarAcessos();
             break;
         case 4:
             ControladorPrincipal.getInstance().exibeTelaRelatório();

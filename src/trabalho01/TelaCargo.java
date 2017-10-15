@@ -6,6 +6,7 @@
 package trabalho01;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -20,6 +21,15 @@ public class TelaCargo {
     
 
     public TelaCargo() {
+        this.sc = new Scanner(System.in);
+        this.owner = ControladorCargo.getInstance();
+    }
+    
+    public static TelaCargo getInstance() {
+        if(instance == null) {
+            instance = new TelaCargo();
+        }
+        return instance;
     }
         
     public void exibeTela() {
@@ -49,13 +59,14 @@ public class TelaCargo {
             telaAlterarNomeCargo();
             break;
         case 4:
-            ControladorCargo.getInstance().exibeCargos();
+            owner.exibeCargos();
             break;
         case 5:
             telaExibeCargoPeloCodigo();
             break;
         case 0:
             ControladorPrincipal.getInstance().exibeTelaPrincipal();
+            break;
         default:
             break;
         }
@@ -115,8 +126,8 @@ public class TelaCargo {
     }
     
     public void mensagemNaoHaCargos() {
-		System.out.println("Nao ha cargos cadastrados\n");
-	}
+	System.out.println("Nao ha cargos cadastrados\n");
+    }
     
     
     public void telaCadastraCargo() throws CadastroIncorretoException {
@@ -124,38 +135,62 @@ public class TelaCargo {
 
                     ArrayList<Cargo> cargo = new ArrayList<>();
                     System.out.println("\nBem vindo a tela de cadastro de cargo");
-                    System.out.println("\nInsira o nome do cargo");
-                    String nomeCargo = this.sc.next();
+                    System.out.println("\nJa existe os cargos a seguir: ");
+                    owner.getCargos();
+                    System.out.println("\nDeseja adicionar um novo cargo:"
+                            + "1 - Sim"
+                            + "2 - Não");
+                    int resposta = sc.nextInt();
+                    if(resposta == 1){
+                        System.out.println("\nInsira o nome do novo cargo");
+                        String nomeCargo = this.sc.next();
                         
-                    System.out.println("\nInsira o nível do cargo");
-                    System.out.println("0. Livre:" + NivelAcesso.LIVRE.getNivelAcesso());
-                    System.out.println("1. Especial" + NivelAcesso.ESPECIAL.getNivelAcesso());
-                    System.out.println("2. Comum" + NivelAcesso.COMUM.getNivelAcesso());
-                    System.out.println("3. Nulo" + NivelAcesso.NULO.getNivelAcesso());
+                        System.out.println("\nInsira o nível do cargo");
+                        System.out.println("0. Livre:" + NivelAcesso.LIVRE.getNivelAcesso());
+                        System.out.println("1. Especial" + NivelAcesso.ESPECIAL.getNivelAcesso());
+                        System.out.println("2. Comum" + NivelAcesso.COMUM.getNivelAcesso());
+                        System.out.println("3. Nulo" + NivelAcesso.NULO.getNivelAcesso());
 
-                    int selecaoNivel = this.sc.nextInt();
-                    NivelAcesso NIVELACESSO = NivelAcesso.COMUM;
-                    if (selecaoNivel != 2) {
-                        if (selecaoNivel == 1) {
-                            NIVELACESSO = NivelAcesso.ESPECIAL;
-                        } else if (selecaoNivel == 0) {
-                            NIVELACESSO = NivelAcesso.LIVRE;
-                        } else if (selecaoNivel == 3) {
-                            NIVELACESSO = NivelAcesso.NULO;
+                        int selecaoNivel = this.sc.nextInt();
+                        NivelAcesso NIVELACESSO = NivelAcesso.COMUM;
+                        if (selecaoNivel != 2) {
+                            if (selecaoNivel == 1) {
+                                NIVELACESSO = NivelAcesso.ESPECIAL;
+                            } else if (selecaoNivel == 0) {
+                                NIVELACESSO = NivelAcesso.LIVRE;
+                            } else if (selecaoNivel == 3) {
+                                NIVELACESSO = NivelAcesso.NULO;
+                            }
+                            this.owner.cadastraCargo(nomeCargo, NIVELACESSO);
                         }
-                        selecaoNivel = this.sc.nextInt();
-
-                    }
-			
-                    String opt = "";
-
-                    if (selecaoNivel == 1 || selecaoNivel == 2) {
-				
-				
-                    }
-
-                    this.owner.cadastraCargo(nomeCargo, NIVELACESSO);
                         
+                        for(Cargo cargoRef: this.owner.getCargos()){
+                            if(cargoRef.getNomeCargo().equals(nomeCargo) && cargoRef.getNIVELACESSO().equals(NIVELACESSO)){
+                                if(cargoRef.getNIVELACESSO().equals(NivelAcesso.ESPECIAL)){
+                                    String horario = "";
+                                    System.out.println("Digite a hora inicial: (Horas:Minutos)");
+                                    horario = sc.nextLine();
+                                    Date horarioInicial = this.owner.converterHora(horario);
+                                    cargoRef.setHorarioInicio(horarioInicial);
+                                    
+                                    System.out.println("Digite a hora final: (Horas:Minutos)");
+                                    horario = sc.nextLine();
+                                    Date horarioFinal = this.owner.converterHora(horario);
+                                    cargoRef.setHorarioFinal(horarioFinal);
+                                }else if(cargoRef.getNIVELACESSO().equals(NivelAcesso.NULO) || cargoRef.getNIVELACESSO().equals(NivelAcesso.LIVRE)){
+                                    String horario = "00:00";
+                                    Date horarioZero = this.owner.converterHora(horario);
+                                    cargoRef.setHorarioInicio(horarioZero);
+                                    cargoRef.setHorarioFinal(horarioZero);
+                                    
+                                //Aqui não sei se sera necessario criar esse if, eu tive a ideia de colocar no if acima
+                                }else if(cargoRef.getNIVELACESSO().equals(NivelAcesso.COMUM)){
+                                    
+                                }
+                                
+                            }
+                        }
+                    }
 		} catch (Exception e) {
 			System.out.println("Formato Incorreto de Preenchimento");
 			this.sc.nextLine();
@@ -167,20 +202,4 @@ public class TelaCargo {
 		System.out.println("Nome do cargo: " + cargo.getNomeCargo() + " \nNumero do codigo: " + cargo.getCodigo());
     }
     
-    public void horariosEspeciais(){
-        String horarioInicial = "";
-        System.out.println("Digite a hora inicial: (Horas:Minutos)");
-        hora = this.sc.next();
-        String horarioFinal = "";
-        System.out.println("Digite a hora final: (Horas:Minutos)");
-        opt = this.sc.next();
-    }
-    
-    public static TelaCargo getInstance() {
-        if(instance == null) {
-            instance = new TelaCargo();
-        }
-        
-        return instance;
-    }
 }

@@ -5,7 +5,9 @@
  */
 package trabalho01;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -13,10 +15,55 @@ import java.util.ArrayList;
  */
 public class ControladorAcesso {
     private ArrayList<Acesso> acessos;
+    private int acessosSemMatricula;
     private ControladorCargo ctrlCargo;
     private TelaAcesso tela;
+    private static ControladorAcesso instance;
+    private Date horarioDoSistema;
     
-    public void tentativaDeAcesso(int codigoFuncionario) {
+    
+    private ControladorAcesso() {
+	this.horarioDoSistema = new Date();
+        this.tela = new TelaAcesso();
+        this.acessos = new ArrayList<>();
+        this.acessosSemMatricula = 0;
+    }
+    
+    public static ControladorAcesso getInstance() {
+	if (instance == null) {
+            instance = new ControladorAcesso();
+        }
+
+        return instance;
+    }
+    
+    //EU meio que ja criei o horario do sistema aqui
+    public Date getHorarioDoSistema() {
+        return horarioDoSistema;
+    }
+
+    public void setHorarioDoSistema(Date horarioDoSistema) {
+        this.horarioDoSistema = horarioDoSistema;
+    }
+    
+    public void tentativaDeAcesso(int matriculaFuncionario) {
+        Funcionario funcionario = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matriculaFuncionario);
+        if(funcionario == null){
+            /*Dentro do acesso precisa ter o funcionario, horario de acesso e talz, só que se não existe matricula
+            não existe funcionario, por isso eu coloquei acessoSemMatricula como int */
+            this.acessosSemMatricula++;
+            
+        }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.NULO)){
+            Acesso novoAcesso = new Acesso(getHorarioDoSistema(), funcionario, false);
+            novoAcesso.setMotivoNaoAcesso(MotivoAcessoNegado.SEMACESSO);
+            this.acessos.add(novoAcesso);
+            
+        }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.COMUM)){
+            
+            
+        }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.ESPECIAL)){
+            
+        }
         
     }
     
@@ -34,14 +81,8 @@ public class ControladorAcesso {
         return acessosNegados;
     }
     
-    public ArrayList<Acesso> listarAcessosNegadosMatriculaInexistente() {
-        ArrayList<Acesso> acessosNegadosMatriculaInexistente = new ArrayList<>();
-        for(Acesso acessoRef: acessos){
-            if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.MATRICULAINEXISTENTE)){
-                acessosNegadosMatriculaInexistente.add(acessoRef);
-            }
-        }
-        return acessosNegadosMatriculaInexistente;
+    public int listarAcessosNegadosMatriculaInexistente() {
+        return this.acessosSemMatricula;
     }
     
     public ArrayList<Acesso> listarAcessosNegadosSemAcesso() {
@@ -74,8 +115,12 @@ public class ControladorAcesso {
         return acessosBloqueados;
     }
 
-    void exibeTelaAcesso() {
+    public void exibeTelaAcesso() {
         tela.exibeTela();
+    }
+    
+    public void horarioDoSistema() throws ParseException {
+        tela.horarioDoSistema();
     }
     
 }

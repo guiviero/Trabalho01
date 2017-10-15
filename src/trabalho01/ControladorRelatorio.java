@@ -5,6 +5,7 @@
  */
 package trabalho01;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -13,9 +14,25 @@ import java.util.Scanner;
  */
 public class ControladorRelatorio {
     private TelaRelatorio tela;
+    private static ControladorRelatorio instance;
     
     public ControladorRelatorio() {
+        this.tela = new TelaRelatorio();
     }
+    
+    public static ControladorRelatorio getInstance() {
+	if (instance == null) {
+            instance = new ControladorRelatorio();
+        }
+
+        return instance;
+    }
+    
+    public ArrayList<Funcionario> listaFuncionarios(){
+        ArrayList<Funcionario> listaFuncionarios = ControladorFuncionario.getInstance().getFuncionarios();
+        return listaFuncionarios;
+    }
+    
         
     public void exibeTelaRelatorio() {
         tela.exibeTela();
