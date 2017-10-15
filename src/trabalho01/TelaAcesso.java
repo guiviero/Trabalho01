@@ -30,14 +30,6 @@ public class TelaAcesso {
         }
         return instance;
     }
-    
-    public void horarioDoSistema() {
-        System.out.println("Seja bem vindo, para iniciar o sistema digite o horario dele: (HH:mm)");
-        String horario = sc.nextLine();
-        Date horarioDoSistema = ControladorCargo.getInstance().converterHora(horario);
-        ControladorAcesso.getInstance().setHorarioDoSistema(horarioDoSistema);
-        
-    }
         
     public void exibeTela() {
         int opcao = 0;        
@@ -75,5 +67,12 @@ public class TelaAcesso {
         ControladorAcesso.getInstance().tentativaDeAcesso(matricula);
         
     }
-       
+    
+    public void acessoPermitido() {
+        System.out.println("Acesso permitido");
+    }
+    
+    public void acessoNegado() {
+        System.out.println("Acesso negado");
+    }
 }

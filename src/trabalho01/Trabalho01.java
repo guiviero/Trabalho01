@@ -17,11 +17,11 @@ public class Trabalho01 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
-        /* Eu pensei em iniciar o programa pedindo o horario do sistema*/
-        //ControladorAcesso.getInstance().horarioDoSistema();
+        ControladorPrincipal.getInstance().horarioDoSistema();
         ControladorPrincipal.getInstance().exibeTelaPrincipal();
+        //System.out.println(ControladorPrincipal.getInstance().getHorarioDoSistema());
     }
     
 }

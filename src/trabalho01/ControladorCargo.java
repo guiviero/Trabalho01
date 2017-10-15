@@ -20,13 +20,14 @@ public class ControladorCargo {
     
     private ControladorFuncionario ctrlFuncionario;
     private ArrayList<Cargo> cargos;
-    private int ultimoCodigo = 100;
+    private int ultimoCodigo;
     private TelaCargo telaCargo;
     private static ControladorCargo instance;
     
     
     private ControladorCargo() {
 	this.cargos = new ArrayList<>();
+        this.ultimoCodigo = 100;
     }
     
     public static ControladorCargo getInstance() {
@@ -50,11 +51,13 @@ public class ControladorCargo {
     public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO) {
         int codigo = gerarCodigo();
         Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
+        this.cargos.add(novoCargo);
+        /*
         for(Cargo cargoRef : cargos){
             if(!(novoCargo.getNomeCargo().equalsIgnoreCase(cargoRef.getNomeCargo())) || novoCargo.getCodigo() != cargoRef.getCodigo()){
-                this.cargos.add(novoCargo);
+                
             }
-        }
+        }*/
     }
     
     public void exibeCargos() {
@@ -121,18 +124,19 @@ public class ControladorCargo {
     }*/
     
     public int gerarCodigo() {
-        int novoCodigo = this.ultimoCodigo++;
-        this.ultimoCodigo = novoCodigo;
-        return novoCodigo;
-    }
-    
-    public Date converterHora(String hora) throws ParseException{
-        SimpleDateFormat horaSimples = new SimpleDateFormat("HH:mm");
-        Date horaConvertida = horaSimples.parse(hora);
-        return horaConvertida;
+        this.ultimoCodigo++;
+        return ultimoCodigo;
     }
 
-    public void exibeTelaCargo(){
+    public int getUltimoCodigo() {
+        return ultimoCodigo;
+    }
+
+    public void setUltimoCodigo(int ultimoCodigo) {
+        this.ultimoCodigo = ultimoCodigo;
+    }
+    
+    public void exibeTelaCargo() throws CadastroIncorretoException{
         TelaCargo.getInstance().exibeTela();
     }
 }

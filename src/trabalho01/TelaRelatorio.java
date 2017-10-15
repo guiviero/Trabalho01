@@ -34,7 +34,7 @@ public class TelaRelatorio {
             System.out.println("7 - Lista com os acessos negados por horário não permitido");
             System.out.println("8 - Lista com os acessos negados por acesso bloqueado");
             System.out.println("9 - Buscar os acessos negados pela matrícula do funcionário");
-            System.out.println("0 - Sair");
+            System.out.println("0 - Voltar ao menu principal");
             System.out.println("Selecione uma opção:");
             opcao = sc.nextInt();
             trataOpcao(opcao);
@@ -141,7 +141,7 @@ public class TelaRelatorio {
 
     private void listarAcessosNegadosPelaMatricula() {        
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
-        int matriculaFuncionario = 0;
+        int matriculaFuncionario;
         System.out.println("Digite a matrícula do funcionário:");
         matriculaFuncionario = sc.nextInt();
         for (Acesso acessoRef : acessosNegados){

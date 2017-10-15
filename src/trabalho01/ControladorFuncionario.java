@@ -86,9 +86,8 @@ public class ControladorFuncionario {
     }
     
     public int gerarMatricula() {
-        int novaMatricula = this.ultimaMatricula++;
-        this.ultimaMatricula = novaMatricula;
-        return novaMatricula;
+        this.ultimaMatricula++;
+        return ultimaMatricula;
     }
     
     public ArrayList<Funcionario> getFuncionarios(){

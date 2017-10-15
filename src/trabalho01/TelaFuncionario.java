@@ -49,7 +49,7 @@ public class TelaFuncionario {
         
     }
     
-    public void trataOpcao(int opcao){
+    public void trataOpcao(int opcao) throws ParseException{
         switch(opcao){
         case 1:
             cadastraFuncionario();

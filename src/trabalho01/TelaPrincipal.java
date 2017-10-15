@@ -18,7 +18,7 @@ public class TelaPrincipal {
         this.sc = new Scanner(System.in);
     }
     
-    public void exibeTela() {
+    public void exibeTela() throws CadastroIncorretoException {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo ao sistema!");;
@@ -36,7 +36,7 @@ public class TelaPrincipal {
         
     }
     
-    public void trataOpcao(int opcao){
+    public void trataOpcao(int opcao) throws CadastroIncorretoException{
         switch(opcao){
         case 1:
             ControladorPrincipal.getInstance().exibeTelaFuncionario();

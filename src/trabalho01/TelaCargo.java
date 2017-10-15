@@ -30,7 +30,7 @@ public class TelaCargo {
         return instance;
     }
         
-    public void exibeTela() {
+    public void exibeTela() throws CadastroIncorretoException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Cargos!");;
@@ -46,15 +46,16 @@ public class TelaCargo {
             trataOpcao(opcao);
         } while(opcao != -1);
     }
-    public void trataOpcao(int opcao) {
+    public void trataOpcao(int opcao) throws CadastroIncorretoException {
         switch(opcao){
         case 1:
             telaCadastraCargo();
+            break;
         case 2:
             telaAlterarNomeCargo();
             break;
         case 3:
-            telaAlterarNomeCargo();
+            telaDeletaCargo();
             break;
         case 4:
             ControladorCargo.getInstance().exibeCargos();
@@ -84,6 +85,8 @@ public class TelaCargo {
     public void telaAlterarNomeCargo() {
         try {
             System.out.println("\nBem vindo a tela de alterar nome do cargo");
+            System.out.println("\nJa existe os cargos a seguir: ");
+            ControladorCargo.getInstance().exibeCargos();
             System.out.println("\nInsira o codigo do cargo que deseja mudar o nome");
             int codigo = this.sc.nextInt();
             Cargo cargoAAlterarNome = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
@@ -91,7 +94,7 @@ public class TelaCargo {
                 System.out.println("Cargo inexistente");
             } else{
                 System.out.println("\nDigite o novo nome do cargo");
-                String novoNomeCargo = this.sc.nextLine();
+                String novoNomeCargo = this.sc.next();
                 ControladorCargo.getInstance().alterarNomeCargoPeloCodigo(novoNomeCargo, codigo);
             }
             
@@ -107,6 +110,8 @@ public class TelaCargo {
 		return;
             }
             System.out.println("\nBem vindo a tela de remocao de cargos");
+            System.out.println("\nJa existe os cargos a seguir: ");
+            ControladorCargo.getInstance().exibeCargos();
             System.out.println("\nInsira o codigo do cargo a ser deletado");
             int codigo = this.sc.nextInt();
             Cargo cargoARemover = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
@@ -134,20 +139,20 @@ public class TelaCargo {
                     ArrayList<Cargo> cargo = new ArrayList<>();
                     System.out.println("\nBem vindo a tela de cadastro de cargo");
                     System.out.println("\nJa existe os cargos a seguir: ");
-                    ControladorCargo.getInstance().getCargos();
+                    ControladorCargo.getInstance().exibeCargos();
                     System.out.println("\nDeseja adicionar um novo cargo:"
-                            + "1 - Sim"
-                            + "2 - Não");
+                            + "\n1 - Sim"
+                            + "\n2 - Não");
                     int resposta = sc.nextInt();
                     if(resposta == 1){
                         System.out.println("\nInsira o nome do novo cargo");
                         String nomeCargo = this.sc.next();
                         
                         System.out.println("\nInsira o nível do cargo");
-                        System.out.println("0. Livre:" + NivelAcesso.LIVRE.getNivelAcesso());
-                        System.out.println("1. Especial" + NivelAcesso.ESPECIAL.getNivelAcesso());
-                        System.out.println("2. Comum" + NivelAcesso.COMUM.getNivelAcesso());
-                        System.out.println("3. Nulo" + NivelAcesso.NULO.getNivelAcesso());
+                        System.out.println("0. Livre: " + NivelAcesso.LIVRE.getNivelAcesso());
+                        System.out.println("1. Especial: " + NivelAcesso.ESPECIAL.getNivelAcesso());
+                        System.out.println("2. Comum: " + NivelAcesso.COMUM.getNivelAcesso());
+                        System.out.println("3. Nulo: " + NivelAcesso.NULO.getNivelAcesso());
 
                         int selecaoNivel = this.sc.nextInt();
                         NivelAcesso NIVELACESSO = NivelAcesso.COMUM;
@@ -159,33 +164,29 @@ public class TelaCargo {
                             } else if (selecaoNivel == 3) {
                                 NIVELACESSO = NivelAcesso.NULO;
                             }
-                            ControladorCargo.getInstance().cadastraCargo(nomeCargo, NIVELACESSO);
                         }
+                        
+                        ControladorCargo.getInstance().cadastraCargo(nomeCargo, NIVELACESSO);
                         
                         for(Cargo cargoRef: ControladorCargo.getInstance().getCargos()){
                             if(cargoRef.getNomeCargo().equals(nomeCargo) && cargoRef.getNIVELACESSO().equals(NIVELACESSO)){
                                 if(cargoRef.getNIVELACESSO().equals(NivelAcesso.ESPECIAL)){
-                                    String horario = "";
                                     System.out.println("Digite a hora inicial: (Horas:Minutos)");
-                                    horario = sc.nextLine();
-                                    Date horarioInicial = ControladorCargo.getInstance().converterHora(horario);
+                                    String stringHorarioInicial = sc.next();
+                                    Date horarioInicial = ControladorPrincipal.getInstance().converterStringEmHora(stringHorarioInicial);
                                     cargoRef.setHorarioInicio(horarioInicial);
                                     
                                     System.out.println("Digite a hora final: (Horas:Minutos)");
-                                    horario = sc.nextLine();
-                                    Date horarioFinal = ControladorCargo.getInstance().converterHora(horario);
+                                    String stringHorarioFinal = sc.next();
+                                    Date horarioFinal = ControladorPrincipal.getInstance().converterStringEmHora(stringHorarioFinal);
                                     cargoRef.setHorarioFinal(horarioFinal);
-                                }else if(cargoRef.getNIVELACESSO().equals(NivelAcesso.NULO) || cargoRef.getNIVELACESSO().equals(NivelAcesso.LIVRE)){
+                                }else if(cargoRef.getNIVELACESSO().equals(NivelAcesso.NULO) || cargoRef.getNIVELACESSO().equals(NivelAcesso.LIVRE)
+                                            || cargoRef.getNIVELACESSO().equals(NivelAcesso.COMUM)){
                                     String horario = "00:00";
-                                    Date horarioZero = ControladorCargo.getInstance().converterHora(horario);
+                                    Date horarioZero = ControladorPrincipal.getInstance().converterStringEmHora(horario);
                                     cargoRef.setHorarioInicio(horarioZero);
                                     cargoRef.setHorarioFinal(horarioZero);
-                                    
-                                //Aqui não sei se sera necessario criar esse if, eu tive a ideia de colocar no if acima
-                                }else if(cargoRef.getNIVELACESSO().equals(NivelAcesso.COMUM)){
-                                    
                                 }
-                                
                             }
                         }
                     }

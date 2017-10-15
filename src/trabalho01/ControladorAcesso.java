@@ -19,11 +19,8 @@ public class ControladorAcesso {
     private ControladorCargo ctrlCargo;
     private TelaAcesso tela;
     private static ControladorAcesso instance;
-    private Date horarioDoSistema;
-    
     
     private ControladorAcesso() {
-	this.horarioDoSistema = new Date();
         this.tela = new TelaAcesso();
         this.acessos = new ArrayList<>();
         this.acessosSemMatricula = 0;
@@ -37,32 +34,57 @@ public class ControladorAcesso {
         return instance;
     }
     
-    //EU meio que ja criei o horario do sistema aqui
-    public Date getHorarioDoSistema() {
-        return horarioDoSistema;
-    }
-
-    public void setHorarioDoSistema(Date horarioDoSistema) {
-        this.horarioDoSistema = horarioDoSistema;
-    }
     
-    public void tentativaDeAcesso(int matriculaFuncionario) {
+    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException {
         Funcionario funcionario = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matriculaFuncionario);
         if(funcionario == null){
-            /*Dentro do acesso precisa ter o funcionario, horario de acesso e talz, só que se não existe matricula
-            não existe funcionario, por isso eu coloquei acessoSemMatricula como int */
             this.acessosSemMatricula++;
+            TelaAcesso.getInstance().acessoNegado();
+            
+        }else if (funcionario.getErrosAcesso()>=3){
+            Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, false);
+            novoAcesso.setMotivoNaoAcesso(MotivoAcessoNegado.ACESSOBLOQUEADO);
+            funcionario.setErrosAcessoAutomatico();
+            this.acessos.add(novoAcesso);
+            TelaAcesso.getInstance().acessoNegado();
+            
+        } else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.LIVRE)){
+            Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, true);
+            this.acessos.add(novoAcesso);
+            TelaAcesso.getInstance().acessoPermitido();
             
         }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.NULO)){
-            Acesso novoAcesso = new Acesso(getHorarioDoSistema(), funcionario, false);
+            Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, false);
             novoAcesso.setMotivoNaoAcesso(MotivoAcessoNegado.SEMACESSO);
+            funcionario.setErrosAcessoAutomatico();
             this.acessos.add(novoAcesso);
+            TelaAcesso.getInstance().acessoNegado();
             
         }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.COMUM)){
-            
+            if(ehHorarioComercial()){
+                Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, true);
+                this.acessos.add(novoAcesso);
+                TelaAcesso.getInstance().acessoPermitido();
+            } else {
+                Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, false);
+                novoAcesso.setMotivoNaoAcesso(MotivoAcessoNegado.HORARIONAOPERMITIDO);
+                funcionario.setErrosAcessoAutomatico();
+                this.acessos.add(novoAcesso);
+                TelaAcesso.getInstance().acessoNegado();
+            }
             
         }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.ESPECIAL)){
-            
+            if(ehHorarioEspecial(funcionario.getCargo().getHorarioInicio(), funcionario.getCargo().getHorarioFinal())) {
+                Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, true);
+                this.acessos.add(novoAcesso);
+                TelaAcesso.getInstance().acessoPermitido();
+            } else {
+                Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, false);
+                novoAcesso.setMotivoNaoAcesso(MotivoAcessoNegado.HORARIONAOPERMITIDO);
+                funcionario.setErrosAcessoAutomatico();
+                this.acessos.add(novoAcesso);
+                TelaAcesso.getInstance().acessoNegado();
+            }
         }
         
     }
@@ -119,8 +141,43 @@ public class ControladorAcesso {
         tela.exibeTela();
     }
     
-    public void horarioDoSistema() throws ParseException {
-        tela.horarioDoSistema();
+    public boolean ehHorarioComercial() throws ParseException {
+        String stringOitoHoras = "08:00";
+        Date oitoHoras = ControladorPrincipal.getInstance().converterStringEmHora(stringOitoHoras);
+        String stringMeioDia = "12:00";
+        Date meioDia = ControladorPrincipal.getInstance().converterStringEmHora(stringMeioDia);
+        String stringQuatorzeHoras = "14:00";
+        Date quatorzeHoras = ControladorPrincipal.getInstance().converterStringEmHora(stringQuatorzeHoras);
+        String stringDezoitoHoras = "18:00";
+        Date dezoitoHoras = ControladorPrincipal.getInstance().converterStringEmHora(stringDezoitoHoras);
+        
+        Date horarioSistema = ControladorPrincipal.getInstance().getHorarioDoSistema();
+        String stringHorarioSimplificado = ControladorPrincipal.getInstance().converterHoraEmString(horarioSistema);
+        Date horarioSistemaSimplificado = ControladorPrincipal.getInstance().converterStringEmHora(stringHorarioSimplificado);
+        
+        if((horarioSistemaSimplificado.after(oitoHoras) && horarioSistemaSimplificado.before(meioDia)) 
+                || (horarioSistemaSimplificado.after(quatorzeHoras) && horarioSistemaSimplificado.before(dezoitoHoras))) {
+            return true;
+        }
+        return false;
     }
     
+    public boolean ehHorarioEspecial(Date horarioInicial, Date horarioFinal) throws ParseException {
+        Date horarioSistema = ControladorPrincipal.getInstance().getHorarioDoSistema();
+        String stringHorarioSimplificado = ControladorPrincipal.getInstance().converterHoraEmString(horarioSistema);
+        Date horarioSistemaSimplificado = ControladorPrincipal.getInstance().converterStringEmHora(stringHorarioSimplificado);
+        
+        if(horarioInicial.before(horarioFinal)) {
+            if(horarioSistemaSimplificado.after(horarioInicial) && horarioSistemaSimplificado.before(horarioFinal))
+                return true;
+            else
+                return false;      
+        }else if(horarioFinal.before(horarioInicial)) {
+            if(horarioSistemaSimplificado.after(horarioFinal) && horarioSistemaSimplificado.before(horarioInicial))
+                return false;
+            else
+                return true;      
+        }
+        return false;
+    }
 }

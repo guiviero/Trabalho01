@@ -10,7 +10,6 @@ package trabalho01;
  * @author Guilherme
  */
 public enum MotivoAcessoNegado {
-    MATRICULAINEXISTENTE("Essa matricula não existe."),
     SEMACESSO("Esse cargo não permite acesso."),
     HORARIONAOPERMITIDO("Esse cargo não permite acesso neste horário."),
     ACESSOBLOQUEADO("Acesso bloqueado após três tentativas inválidas.");

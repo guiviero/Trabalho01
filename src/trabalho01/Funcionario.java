@@ -92,8 +92,8 @@ public class Funcionario {
         return errosAcesso;
     }
 
-    public void setErrosAcesso(int errosAcesso) {
-        this.errosAcesso = errosAcesso;
+    public void setErrosAcessoAutomatico() {
+        this.errosAcesso++;
     }
     
     
