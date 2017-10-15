@@ -27,7 +27,6 @@ public class ControladorCargo {
     
     private ControladorCargo() {
 	this.cargos = new ArrayList<>();
-        this.telaCargo = new TelaCargo();
     }
     
     public static ControladorCargo getInstance() {
@@ -60,11 +59,11 @@ public class ControladorCargo {
     
     public void exibeCargos() {
         if (this.cargos.isEmpty()) {
-            this.telaCargo.mensagemNaoHaCargos();
+            TelaCargo.getInstance().mensagemNaoHaCargos();
             return;
         }
         for (Cargo cargo : this.cargos) {
-             this.telaCargo.exibeCargo(cargo);
+             TelaCargo.getInstance().exibeCargo(cargo);
         }
     }
     
@@ -87,7 +86,7 @@ public class ControladorCargo {
     
     public boolean haCargos() {
 	if (this.cargos.isEmpty()) {
-            this.telaCargo.mensagemNaoHaCargos();
+            TelaCargo.getInstance().mensagemNaoHaCargos();
             return false;
 	}
 	return true;
@@ -134,6 +133,6 @@ public class ControladorCargo {
     }
 
     public void exibeTelaCargo(){
-        telaCargo.exibeTela();
+        TelaCargo.getInstance().exibeTela();
     }
 }

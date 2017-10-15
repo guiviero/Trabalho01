@@ -18,7 +18,7 @@ public class TelaPrincipal {
         this.sc = new Scanner(System.in);
     }
     
-    public void exibirTela() {
+    public void exibeTela() {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo ao sistema!");;

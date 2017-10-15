@@ -104,5 +104,4 @@ public class ControladorFuncionario {
     public void exibeTelaFuncionario() {
         tela.exibeTela();
     }
-    
 }

@@ -19,10 +19,8 @@ public class TelaCargo {
     private Scanner sc;
     private static TelaCargo instance;
     
-
     public TelaCargo() {
         this.sc = new Scanner(System.in);
-        this.owner = ControladorCargo.getInstance();
     }
     
     public static TelaCargo getInstance() {
@@ -59,7 +57,7 @@ public class TelaCargo {
             telaAlterarNomeCargo();
             break;
         case 4:
-            owner.exibeCargos();
+            ControladorCargo.getInstance().exibeCargos();
             break;
         case 5:
             telaExibeCargoPeloCodigo();
@@ -75,7 +73,7 @@ public class TelaCargo {
         System.out.println("\nBem vindo a tela de buscar cargo");
         System.out.println("\nDigite o código do cargo desejado");
         int codigo = this.sc.nextInt();
-        Cargo cargoASerExibido = this.owner.buscarCargoPeloCodigo(codigo);
+        Cargo cargoASerExibido = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
         if (cargoASerExibido == null){
             System.out.println("\nCargo inexistente");
         } else {
@@ -88,13 +86,13 @@ public class TelaCargo {
             System.out.println("\nBem vindo a tela de alterar nome do cargo");
             System.out.println("\nInsira o codigo do cargo que deseja mudar o nome");
             int codigo = this.sc.nextInt();
-            Cargo cargoAAlterarNome = this.owner.buscarCargoPeloCodigo(codigo);
+            Cargo cargoAAlterarNome = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
             if (cargoAAlterarNome == null) {
                 System.out.println("Cargo inexistente");
             } else{
                 System.out.println("\nDigite o novo nome do cargo");
                 String novoNomeCargo = this.sc.nextLine();
-                this.owner.alterarNomeCargoPeloCodigo(novoNomeCargo, codigo);
+                ControladorCargo.getInstance().alterarNomeCargoPeloCodigo(novoNomeCargo, codigo);
             }
             
         } catch (Exception e) {
@@ -105,17 +103,17 @@ public class TelaCargo {
     
     public void telaDeletaCargo() {
 	try {
-            if (!this.owner.haCargos()) {
+            if (!ControladorCargo.getInstance().haCargos()) {
 		return;
             }
             System.out.println("\nBem vindo a tela de remocao de cargos");
             System.out.println("\nInsira o codigo do cargo a ser deletado");
             int codigo = this.sc.nextInt();
-            Cargo cargoARemover = this.owner.buscarCargoPeloCodigo(codigo);
+            Cargo cargoARemover = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
             if (cargoARemover == null) {
                 System.out.println("\nCargo inexistente");
             } else {
-                this.owner.deletarCargoPeloCodigo(codigo);
+                ControladorCargo.getInstance().deletarCargoPeloCodigo(codigo);
             }
         } catch (Exception e) {
             System.out.println("\nFormato incorreto de preenchimento");
@@ -136,7 +134,7 @@ public class TelaCargo {
                     ArrayList<Cargo> cargo = new ArrayList<>();
                     System.out.println("\nBem vindo a tela de cadastro de cargo");
                     System.out.println("\nJa existe os cargos a seguir: ");
-                    owner.getCargos();
+                    ControladorCargo.getInstance().getCargos();
                     System.out.println("\nDeseja adicionar um novo cargo:"
                             + "1 - Sim"
                             + "2 - Não");
@@ -161,25 +159,25 @@ public class TelaCargo {
                             } else if (selecaoNivel == 3) {
                                 NIVELACESSO = NivelAcesso.NULO;
                             }
-                            this.owner.cadastraCargo(nomeCargo, NIVELACESSO);
+                            ControladorCargo.getInstance().cadastraCargo(nomeCargo, NIVELACESSO);
                         }
                         
-                        for(Cargo cargoRef: this.owner.getCargos()){
+                        for(Cargo cargoRef: ControladorCargo.getInstance().getCargos()){
                             if(cargoRef.getNomeCargo().equals(nomeCargo) && cargoRef.getNIVELACESSO().equals(NIVELACESSO)){
                                 if(cargoRef.getNIVELACESSO().equals(NivelAcesso.ESPECIAL)){
                                     String horario = "";
                                     System.out.println("Digite a hora inicial: (Horas:Minutos)");
                                     horario = sc.nextLine();
-                                    Date horarioInicial = this.owner.converterHora(horario);
+                                    Date horarioInicial = ControladorCargo.getInstance().converterHora(horario);
                                     cargoRef.setHorarioInicio(horarioInicial);
                                     
                                     System.out.println("Digite a hora final: (Horas:Minutos)");
                                     horario = sc.nextLine();
-                                    Date horarioFinal = this.owner.converterHora(horario);
+                                    Date horarioFinal = ControladorCargo.getInstance().converterHora(horario);
                                     cargoRef.setHorarioFinal(horarioFinal);
                                 }else if(cargoRef.getNIVELACESSO().equals(NivelAcesso.NULO) || cargoRef.getNIVELACESSO().equals(NivelAcesso.LIVRE)){
                                     String horario = "00:00";
-                                    Date horarioZero = this.owner.converterHora(horario);
+                                    Date horarioZero = ControladorCargo.getInstance().converterHora(horario);
                                     cargoRef.setHorarioInicio(horarioZero);
                                     cargoRef.setHorarioFinal(horarioZero);
                                     

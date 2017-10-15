@@ -46,10 +46,10 @@ public class ControladorPrincipal {
     }
 
     public void exibeTelaRelatório() {
-        ctrlRelatorio.exibeTelaRelatorio();
+        ControladorRelatorio.getInstance().exibeTelaRelatorio();
     }
     
     public void exibeTelaPrincipal() {
-        tela.exibirTela();
+        tela.exibeTela();
     }
 }

@@ -35,7 +35,7 @@ public class ControladorRelatorio {
     
         
     public void exibeTelaRelatorio() {
-        tela.exibeTela();
+        TelaRelatorio.getInstance().exibeTela();
     }
 
 }

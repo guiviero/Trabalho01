@@ -22,7 +22,6 @@ public class TelaAcesso {
 
     public TelaAcesso() {
         this.sc = new Scanner(System.in);
-        this.owner = ControladorAcesso.getInstance();
     }
     
     public static TelaAcesso getInstance() {
@@ -36,7 +35,7 @@ public class TelaAcesso {
         System.out.println("Seja bem vindo, para iniciar o sistema digite o horario dele: (HH:mm)");
         String horario = sc.nextLine();
         Date horarioDoSistema = ControladorCargo.getInstance().converterHora(horario);
-        this.owner.setHorarioDoSistema(horarioDoSistema);
+        ControladorAcesso.getInstance().setHorarioDoSistema(horarioDoSistema);
         
     }
         
@@ -57,7 +56,7 @@ public class TelaAcesso {
     public void trataOpcao(int opcao) {
         switch(opcao){
         case 1:
-            this.owner.tentativaDeAcesso(opcao);
+            ControladorAcesso.getInstance().tentativaDeAcesso(opcao);
         case 2:
             //Nesse metodo eu tive a ideia de pegar os dados da classe relatorio
             ControladorRelatorio.getInstance().exibeTelaRelatorio();
@@ -73,7 +72,7 @@ public class TelaAcesso {
     public void acessarSetorFinanceiro() throws CadastroIncorretoException{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
         int matricula = sc.nextInt();
-        this.owner.tentativaDeAcesso(matricula);
+        ControladorAcesso.getInstance().tentativaDeAcesso(matricula);
         
     }
        

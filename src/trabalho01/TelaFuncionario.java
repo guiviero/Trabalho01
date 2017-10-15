@@ -22,7 +22,6 @@ public class TelaFuncionario {
     
     public TelaFuncionario(){
         this.sc = new Scanner(System.in);
-        this.owner = ControladorFuncionario.getInstance();
     }
     
     public static TelaFuncionario getInstance() {
@@ -62,7 +61,7 @@ public class TelaFuncionario {
             deletarFuncionario();
             break;
         case 4:
-            owner.getFuncionarios();
+            ControladorFuncionario.getInstance().getFuncionarios();
             break;
         default:
             break;
@@ -76,7 +75,7 @@ public class TelaFuncionario {
             System.out.println("Digite a data de nascimento do Funcionario"+
                                 "\n__/__/____");
             String dataNascimento = sc.nextLine();
-            owner.converterData(dataNascimento);
+            ControladorFuncionario.getInstance().converterData(dataNascimento);
             
             System.out.println("Digite o telefone do Funcionario");
             int telefone = sc.nextInt();
@@ -95,13 +94,13 @@ public class TelaFuncionario {
             System.out.println("Digite o cpf do Funcionario");
             int cpf = sc.nextInt();
             
-            owner.cadastrarFuncionario(nome, dataNascimento, telefone, salario, cargo, cpf);
+            ControladorFuncionario.getInstance().cadastrarFuncionario(nome, dataNascimento, telefone, salario, cargo, cpf);
     }
     
     public void alteraCargoFuncionario() throws CadastroIncorretoException{
         System.out.println("Digite a matricula do Funcionario que deseja alterar o Cargo");
         int matricula = sc.nextInt();
-        Funcionario func = owner.buscarFuncionarioPelaMatricula(matricula);
+        Funcionario func = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matricula);
         if(func != null){
             System.out.println("Digite o codigo do cargo do Funcionario");
             ControladorCargo.getInstance().exibeCargos();
@@ -110,7 +109,7 @@ public class TelaFuncionario {
                 if(cargo == null){
                     new Exception ("Codigo invalido");
                 }else{
-                    owner.alterarCargoFuncionarioPelaMatricula(matricula, cargo);
+                    ControladorFuncionario.getInstance().alterarCargoFuncionarioPelaMatricula(matricula, cargo);
                 }  
         }else if(func == null){
                 new CadastroIncorretoException("Esse funcionario não existe no nosso sistema");
@@ -120,9 +119,9 @@ public class TelaFuncionario {
     public void deletarFuncionario() throws CadastroIncorretoException{
         System.out.println("Digite a matricula do Funcionario que deseja deletar");
         int matricula = sc.nextInt();
-        Funcionario func = owner.buscarFuncionarioPelaMatricula(matricula);
+        Funcionario func = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matricula);
         if(func != null){
-            owner.deletarFuncionarioPelaMatricula(func);
+            ControladorFuncionario.getInstance().deletarFuncionarioPelaMatricula(func);
         }else if(func == null){
             new CadastroIncorretoException("Esse funcionario não existe no nosso sistema");
         }

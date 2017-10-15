@@ -71,7 +71,7 @@ public class ControladorAcesso {
         return this.acessos;
     }
     
-    public ArrayList<Acesso> listarAcessosNegados() {
+    public ArrayList<Acesso> getAcessosNegados() {
         ArrayList<Acesso> acessosNegados = new ArrayList<>();
         for (Acesso acesso: acessos){
             if(acesso.isConseguiuAcessar() == false){
@@ -81,11 +81,11 @@ public class ControladorAcesso {
         return acessosNegados;
     }
     
-    public int listarAcessosNegadosMatriculaInexistente() {
+    public int getAcessosNegadosMatriculaInexistente() {
         return this.acessosSemMatricula;
     }
     
-    public ArrayList<Acesso> listarAcessosNegadosSemAcesso() {
+    public ArrayList<Acesso> getAcessosNegadosSemAcesso() {
       ArrayList<Acesso> acessosNegadosSemAcessos = new ArrayList<>();
         for(Acesso acessoRef: acessos){
             if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.SEMACESSO)){
@@ -95,7 +95,7 @@ public class ControladorAcesso {
         return acessosNegadosSemAcessos;
     }
     
-    public ArrayList<Acesso> listarAcessosNegadosHorarioNaoPermitido() {
+    public ArrayList<Acesso> getAcessosNegadosHorarioNaoPermitido() {
         ArrayList<Acesso> acessosNegadosHorarioNaoPermitido = new ArrayList<>();
         for(Acesso acessoRef: acessos){
             if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.HORARIONAOPERMITIDO)){
@@ -105,7 +105,7 @@ public class ControladorAcesso {
         return acessosNegadosHorarioNaoPermitido;
     }
     
-    public ArrayList<Acesso> listarAcessosNegadosAcessoBloqueado() {
+    public ArrayList<Acesso> getAcessosNegadosAcessoBloqueado() {
         ArrayList<Acesso> acessosBloqueados = new ArrayList<>();
         for(Acesso acessoRef: acessos){
             if(acessoRef.getMotivoNaoAcesso().equals(MotivoAcessoNegado.ACESSOBLOQUEADO)){
