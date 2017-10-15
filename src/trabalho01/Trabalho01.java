@@ -18,7 +18,7 @@ public class Trabalho01 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ControladorPrincipal.getInstance().iniciar();
+        ControladorPrincipal.getInstance().exibeTelaPrincipal();
     }
     
 }

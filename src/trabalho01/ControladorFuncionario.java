@@ -17,6 +17,7 @@ public class ControladorFuncionario {
     private static ArrayList<Funcionario> funcionarios;
     private int ultimaMatricula = 10000;
     private TelaFuncionario tela;
+    private static ControladorFuncionario instance;
     
     public ControladorFuncionario() {
         this.funcionarios = new ArrayList<>();
@@ -85,5 +86,13 @@ public class ControladorFuncionario {
 
     public void exibeTelaFuncionario() {
         tela.exibeTela();
+    }
+    
+    public static ControladorFuncionario getInstance() {
+        if(instance == null) {
+            instance = new ControladorFuncionario();
+        }
+        
+        return instance;
     }
 }

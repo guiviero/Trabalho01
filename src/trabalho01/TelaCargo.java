@@ -16,31 +16,29 @@ public class TelaCargo {
     
     private ControladorCargo owner;
     private Scanner sc;
+    private static TelaCargo instance;
     
 
-    public TelaCargo(ControladorCargo owner) {
-	this.owner = owner;
-	this.sc = new Scanner(System.in);
+    public TelaCargo() {
     }
         
-    public void exibeTela() throws CadastroIncorretoException{
+    public void exibeTela() {
         int opcao = 0;        
         do{
-            System.out.println("\nMenu dos Funcionarios!");;
+            System.out.println("\nMenu dos Cargos!");;
             System.out.println("-----------------------------------");
             System.out.println("1 - Cadastrar um novo cargo");
             System.out.println("2 - Alterar o nome do cargo pelo codigo");
             System.out.println("3 - Deletar cargo pelo codigo");
             System.out.println("4 - Lista de todos os cargos"); 
             System.out.println("5 - Buscar cargo pelo codigo"); 
-            System.out.println("0 - Encerrar");
+            System.out.println("0 - Voltar");
             System.out.println("Selecione uma opção:");
             opcao = sc.nextInt();
             trataOpcao(opcao);
-        } while(opcao != 0);     
-        System.exit(0);
+        } while(opcao != -1);
     }
-    public void trataOpcao(int opcao) throws CadastroIncorretoException{
+    public void trataOpcao(int opcao) {
         switch(opcao){
         case 1:
             telaCadastraCargo();
@@ -51,11 +49,13 @@ public class TelaCargo {
             telaAlterarNomeCargo();
             break;
         case 4:
-            this.owner.exibeCargos();
+            ControladorCargo.getInstance().exibeCargos();
             break;
         case 5:
             telaExibeCargoPeloCodigo();
             break;
+        case 0:
+            ControladorPrincipal.getInstance().exibeTelaPrincipal();
         default:
             break;
         }
@@ -122,48 +122,39 @@ public class TelaCargo {
     public void telaCadastraCargo() throws CadastroIncorretoException {
 		try {
 
-			ArrayList<Cargo> cargo = new ArrayList<>();
-			System.out.println("\nBem vindo a tela de cadastro de cargo");
-			System.out.println("\nInsira o nome do cargo");
-			String nomeCargo = this.sc.next();
+                    ArrayList<Cargo> cargo = new ArrayList<>();
+                    System.out.println("\nBem vindo a tela de cadastro de cargo");
+                    System.out.println("\nInsira o nome do cargo");
+                    String nomeCargo = this.sc.next();
                         
-                        System.out.println("\nInsira o nível do cargo");
-			System.out.println("0. Livre:" + NivelAcesso.LIVRE.getNivelAcesso());
-			System.out.println("1. Especial" + NivelAcesso.ESPECIAL.getNivelAcesso());
-                        System.out.println("2. Comum" + NivelAcesso.COMUM.getNivelAcesso());
-                        System.out.println("3. Nulo" + NivelAcesso.NULO.getNivelAcesso());
+                    System.out.println("\nInsira o nível do cargo");
+                    System.out.println("0. Livre:" + NivelAcesso.LIVRE.getNivelAcesso());
+                    System.out.println("1. Especial" + NivelAcesso.ESPECIAL.getNivelAcesso());
+                    System.out.println("2. Comum" + NivelAcesso.COMUM.getNivelAcesso());
+                    System.out.println("3. Nulo" + NivelAcesso.NULO.getNivelAcesso());
 
-			int selecaoNivel = this.sc.nextInt();
-			NivelAcesso NIVELACESSO = NivelAcesso.COMUM;
-			while (selecaoNivel != 2) {
-				if (selecaoNivel == 1) {
-					NIVELACESSO = NivelAcesso.ESPECIAL;
-					break;
-				} else if (selecaoNivel == 0) {
-					NIVELACESSO = NivelAcesso.LIVRE;
-					break;
-				} else if (selecaoNivel == 3) {
-					NIVELACESSO = NivelAcesso.NULO;
-					break;
-				}
-				selecaoNivel = this.sc.nextInt();
+                    int selecaoNivel = this.sc.nextInt();
+                    NivelAcesso NIVELACESSO = NivelAcesso.COMUM;
+                    if (selecaoNivel != 2) {
+                        if (selecaoNivel == 1) {
+                            NIVELACESSO = NivelAcesso.ESPECIAL;
+                        } else if (selecaoNivel == 0) {
+                            NIVELACESSO = NivelAcesso.LIVRE;
+                        } else if (selecaoNivel == 3) {
+                            NIVELACESSO = NivelAcesso.NULO;
+                        }
+                        selecaoNivel = this.sc.nextInt();
 
-			}
+                    }
 			
-			String opt = "";
+                    String opt = "";
 
-			while (!opt.equals("N") && NIVELACESSO == NivelAcesso.ESPECIAL) {
+                    if (selecaoNivel == 1 || selecaoNivel == 2) {
 				
 				
-				Veiculo v = this.owner.pegaVeiculo(opt);
-				if (v != null) {
-					tiposDeVeiculo.add(v);
-				} else {
-					System.out.println("Veículo Inexistente");
-				}
-			}
+                    }
 
-			this.owner.cadastraCargo(nomeCargo, NIVELACESSO);
+                    this.owner.cadastraCargo(nomeCargo, NIVELACESSO);
                         
 		} catch (Exception e) {
 			System.out.println("Formato Incorreto de Preenchimento");
@@ -183,5 +174,13 @@ public class TelaCargo {
         String horarioFinal = "";
         System.out.println("Digite a hora final: (Horas:Minutos)");
         opt = this.sc.next();
+    }
+    
+    public static TelaCargo getInstance() {
+        if(instance == null) {
+            instance = new TelaCargo();
+        }
+        
+        return instance;
     }
 }

@@ -14,7 +14,7 @@ import java.util.Date;
 public class Funcionario {
     private int matricula;
     private String nome;
-    private Date nascimento;
+    private String nascimento;
     private int telefone;
     private double salario;
     private Cargo cargo;
@@ -48,11 +48,11 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public Date getNascimento() {
+    public String getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
     }
 

@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 
 import trabalho01.ControladorFuncionario;
@@ -27,17 +26,17 @@ public class ControladorCargo {
     
     
     private ControladorCargo() {
-		this.cargos = new ArrayList<>();
-		this.telaCargo = new TelaCargo(this);
-	}
+	this.cargos = new ArrayList<>();
+        this.telaCargo = new TelaCargo();
+    }
     
      public static ControladorCargo getInstance() {
-		if (instance == null) {
-			instance = new ControladorCargo();
-		}
+	if (instance == null) {
+            instance = new ControladorCargo();
+        }
 
-		return instance;
-	}
+        return instance;
+    }
     
     public void inserirCargo(Cargo cargo) {
         try {
@@ -96,8 +95,8 @@ public class ControladorCargo {
     
     public boolean haCargos() {
 	if (this.cargos.isEmpty()) {
-		this.telaCargo.mensagemNaoHaCargos();
-		return false;
+            this.telaCargo.mensagemNaoHaCargos();
+            return false;
 	}
 	return true;
     }
@@ -142,7 +141,7 @@ public class ControladorCargo {
         return horaConvertida;
     }
 
-    public void exibeTelaCargo() {
+    public void exibeTelaCargo(){
         telaCargo.exibeTela();
     }
 }

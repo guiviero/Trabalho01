@@ -12,6 +12,7 @@ package trabalho01;
 public class ControladorPrincipal {
     
     private static ControladorPrincipal instance;
+    
     private ControladorFuncionario ctrlFuncionario;
     private ControladorCargo ctrlCargo;
     private ControladorAcesso ctrlAcesso;
@@ -20,6 +21,7 @@ public class ControladorPrincipal {
     
     private ControladorPrincipal (){
         this.tela = new TelaPrincipal();
+        this.ctrlCargo = ControladorCargo.getInstance();
     }
     
     
@@ -47,7 +49,7 @@ public class ControladorPrincipal {
         ctrlRelatorio.exibeTelaRelatorio();
     }
     
-    public void iniciar() {
+    public void exibeTelaPrincipal() {
         tela.exibirTela();
     }
 }
