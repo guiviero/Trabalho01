@@ -62,7 +62,7 @@ public class ControladorCargo implements IControladorCargo {
             }
         }
         TelaCargo.getInstance().mensagemCodigoInvalido();
-        TelaFuncionario.getInstance().exibeTela();
+        TelaCargo.getInstance().exibeTela();
         return null;
     }
     

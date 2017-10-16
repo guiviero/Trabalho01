@@ -5,8 +5,6 @@
  */
 package trabalho01;
 
-import java.util.Date;
-
 /**
  *
  * @author Guilherme
@@ -15,13 +13,13 @@ public class Funcionario extends Pessoa{
     private int matricula;
     private String nome;
     private String nascimento;
-    private int telefone;
+    private double telefone;
     private double salario;
     private Cargo cargo;
-    private int cpf;
+    private double cpf;
     private int errosAcesso;
 
-    public Funcionario(int matricula, String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf, int errosAcesso) {
+    public Funcionario(int matricula, String nome, String nascimento, double telefone, double salario, Cargo cargo, double cpf, int errosAcesso) {
         this.matricula = matricula;
         this.nome = nome;
         this.nascimento = nascimento;

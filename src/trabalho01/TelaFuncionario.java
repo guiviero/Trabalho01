@@ -119,8 +119,8 @@ public class TelaFuncionario {
                 ControladorFuncionario.getInstance().converterData(dataNascimento);
 
                 System.out.println("Digite o telefone do Funcionario");
-                while (!sc.hasNextInt()) sc.next();
-                int telefone = sc.nextInt();
+                while (!sc.hasNextDouble()) sc.next();
+                double telefone = sc.nextDouble();
 
                 System.out.println("Digite o salario do Funcionario");
                 while (!sc.hasNextDouble()) sc.next();
@@ -134,8 +134,8 @@ public class TelaFuncionario {
                 int codigo = sc.nextInt();
                 Cargo cargo = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
                 System.out.println("Digite o cpf do Funcionario");
-                while (!sc.hasNextInt()) sc.next();
-                int cpf = sc.nextInt();
+                while (!sc.hasNextDouble()) sc.next();
+                double cpf = sc.nextDouble();
 
                 ControladorFuncionario.getInstance().cadastrarFuncionario(nome, dataNascimento, telefone, salario, cargo, cpf);
 
@@ -161,8 +161,8 @@ public class TelaFuncionario {
         int matricula = sc.nextInt();
         Funcionario func = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matricula);
         if(func != null){
-            System.out.println("Digite o codigo do novo cargo do Funcionario");
             ControladorCargo.getInstance().exibeCargos();
+            System.out.println("Digite o codigo do novo cargo do Funcionario");
             while (!sc.hasNextInt()) sc.next();
             int codigo = sc.nextInt();
             Cargo cargo = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
@@ -181,7 +181,7 @@ public class TelaFuncionario {
      * Deleta um funcionário
      * @throws CadastroIncorretoException 
      */
-    public void deletarFuncionario() throws CadastroIncorretoException{
+    public void deletarFuncionario() throws CadastroIncorretoException, Exception{
         System.out.println("Digite a matricula do Funcionario que deseja deletar");
         while (!sc.hasNextInt()) sc.next();
         int matricula = sc.nextInt();
@@ -206,6 +206,13 @@ public class TelaFuncionario {
      */
     public void mensagemFuncionarioDeletadoComSucesso() {
         System.out.println("\nFuncionário deletado com sucesso");
+    }
+
+    /**
+     * Imprime a mensagem de matrícula inválida
+     */
+    public void mensagemMatriculaInvalida() {
+        System.out.println("Matrícula Invalida");
     }
 }
     

@@ -12,5 +12,5 @@ package trabalho01;
 public abstract class Pessoa {
     private String nome;
     private String nascimento;
-    private int cpf;
+    private double cpf;
 }

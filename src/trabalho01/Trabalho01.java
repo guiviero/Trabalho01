@@ -5,9 +5,6 @@
  */
 package trabalho01;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  *
  * @author Guilherme
@@ -21,7 +18,6 @@ public class Trabalho01 {
         System.out.println("Bem vindo ao sistema!");
         ControladorPrincipal.getInstance().horarioDoSistema();
         ControladorPrincipal.getInstance().exibeTelaPrincipal();
-        //System.out.println(ControladorPrincipal.getInstance().getHorarioDoSistema());
     }
     
 }

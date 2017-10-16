@@ -124,6 +124,7 @@ public class TelaCargo {
                 sc.nextLine();
                 String novoNomeCargo = this.sc.nextLine();
                 ControladorCargo.getInstance().alterarNomeCargoPeloCodigo(novoNomeCargo, codigo);
+                System.out.println("Nome do cargo alterado com sucesso");
             }
             
         } catch (Exception e) {

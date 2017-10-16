@@ -40,7 +40,7 @@ public class ControladorFuncionario {
      * @param cargo cargo do funcionario
      * @param cpf cpf do funcionario
      */
-    public void cadastrarFuncionario(String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf) {
+    public void cadastrarFuncionario(String nome, String nascimento, double telefone, double salario, Cargo cargo, double cpf) {
 	int errosAcesso = 0;
         int matricula = gerarMatricula();
         if(cargo != null){
@@ -68,12 +68,14 @@ public class ControladorFuncionario {
      * @param matriculaFuncionario
      * @return retorna um funcionario
      */
-    public Funcionario buscarFuncionarioPelaMatricula (int matriculaFuncionario) {
+    public Funcionario buscarFuncionarioPelaMatricula (int matriculaFuncionario) throws CadastroIncorretoException, FuncionarioComCargoException, Exception {
         for (Funcionario funcionario : this.funcionarios) {
             if (funcionario.getMatricula() == matriculaFuncionario) {
                 return funcionario;
             }
 	}
+        TelaFuncionario.getInstance().mensagemMatriculaInvalida();
+        TelaFuncionario.getInstance().exibeTela();
 	return null;
     }
     
