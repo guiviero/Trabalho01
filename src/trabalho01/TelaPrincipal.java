@@ -20,6 +20,13 @@ public class TelaPrincipal {
         this.sc = new Scanner(System.in);
     }
     
+    /**
+     * Exibe a tela principal
+     * @throws CadastroIncorretoException
+     * @throws ParseException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         int opcao = 0;        
         do{
@@ -40,7 +47,14 @@ public class TelaPrincipal {
         
     }
     
-    
+    /**
+     * Trata a opção da tela
+     * @param opcao
+     * @throws CadastroIncorretoException
+     * @throws ParseException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception{
         switch(opcao){
         case 1:

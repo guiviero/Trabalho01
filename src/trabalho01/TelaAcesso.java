@@ -29,7 +29,14 @@ public class TelaAcesso {
         }
         return instance;
     }
-        
+    
+    /**
+     * Exibe a tela de acesso
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */    
     public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         int opcao = 0;        
         do{
@@ -45,6 +52,14 @@ public class TelaAcesso {
         } while(opcao != -1);
     }
     
+    /**
+     * trata a opção da tela
+     * @param opcao
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         switch(opcao){
         case 1:
@@ -62,6 +77,11 @@ public class TelaAcesso {
         }
     }
     
+    /**
+     * Faz o acesso ao setor financeiro
+     * @throws CadastroIncorretoException
+     * @throws ParseException 
+     */
     public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
         while (!sc.hasNextInt()) sc.next();
@@ -70,10 +90,16 @@ public class TelaAcesso {
         
     }
     
+    /**
+     * Imprime uma mensagem se o acesso é permitido
+     */
     public void acessoPermitido() {
         System.out.println("Acesso permitido");
     }
     
+    /**
+     * Imprime uma mensagem se o acesso é negado
+     */
     public void acessoNegado() {
         System.out.println("Acesso negado");
     }

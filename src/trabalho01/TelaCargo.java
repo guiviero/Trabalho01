@@ -29,7 +29,14 @@ public class TelaCargo {
         }
         return instance;
     }
-        
+    
+    /**
+     * Exibe a tela de cargos
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws ParseException
+     * @throws Exception 
+     */    
     public void exibeTela() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception {
         int opcao = 0;        
         do{
@@ -48,6 +55,14 @@ public class TelaCargo {
         } while(opcao != -1);
     }
     
+    /**
+     * trata a opção da tela
+     * @param opcao
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws ParseException
+     * @throws Exception 
+     */
     public void trataOpcao(int opcao) throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception {
         switch(opcao){
         case 1:
@@ -73,6 +88,10 @@ public class TelaCargo {
         }
     }
     
+    /**
+     * Exibe o cargo através do código
+     * @throws Exception 
+     */
     public void telaExibeCargoPeloCodigo() throws Exception{
         System.out.println("\nBem vindo a tela de buscar cargo");
         System.out.println("\nDigite o código do cargo desejado");
@@ -85,7 +104,10 @@ public class TelaCargo {
             exibeCargo(cargoASerExibido);
         }
     }
-           
+    
+    /**
+     * Altera o nome do cargo
+     */
     public void telaAlterarNomeCargo() {
         try {
             System.out.println("\nBem vindo a tela de alterar nome do cargo");
@@ -110,6 +132,11 @@ public class TelaCargo {
         
     }
     
+    /**
+     * Deleta o cargo
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void telaDeletaCargo() throws FuncionarioComCargoException, Exception {
 	
         if (!ControladorCargo.getInstance().haCargos()) {
@@ -130,14 +157,10 @@ public class TelaCargo {
         }
     }  
     
-    public void mensagemNaoHaCargos() {
-	System.out.println("Nao ha cargos cadastrados\n");
-    }
-    
-    public void mensagemCodigoInvalido() {
-        System.out.println("Codigo Invalido");
-    }
-    
+    /**
+     * Cadastra cargo
+     * @throws CadastroIncorretoException 
+     */
     public void telaCadastraCargo() throws CadastroIncorretoException {
 		try {
 
@@ -213,17 +236,40 @@ public class TelaCargo {
 			return;
 		}
     }
-
     
+    /**
+     * Exibe cargo
+     * @param cargo 
+     */
     public void exibeCargo(Cargo cargo) {
 		System.out.println("-----------------------------");
 		System.out.println("Nome do cargo: " + cargo.getNomeCargo() + " \nNumero do codigo: " + cargo.getCodigo());
     }
+    
+    /**
+     * Imprime uma mensagem que não há cargos
+     */
+    public void mensagemNaoHaCargos() {
+	System.out.println("Nao ha cargos cadastrados\n");
+    }
+    
+    /**
+     * Imprime uma mensagem de código inválido
+     */
+    public void mensagemCodigoInvalido() {
+        System.out.println("Codigo Invalido");
+    }
 
+    /**
+     * Imprime uma mensagem que não há funcionários em um cargo
+     */
     public void mensagemExisteFuncionarioNesteCargo() {
         System.out.println("Existe pelo menos um funcionário neste cargo, por isso ele não pode ser deletado");
     }
     
+    /**
+     * Imprime uma mensagem de cargo deletado com sucesso
+     */
     public void mensagemCargoDeletadoComSucesso() {
         System.out.println("\nCargo deletado com sucesso");
     }

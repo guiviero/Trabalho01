@@ -31,6 +31,13 @@ public class TelaFuncionario {
         return instance;
     }
     
+    /**
+     * Exibe tela funcionario
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         int opcao = 0;        
         do{
@@ -49,6 +56,14 @@ public class TelaFuncionario {
         
     }
     
+    /**
+     * Trata opção da tela
+     * @param opcao
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception{
         switch(opcao){
         case 1:
@@ -71,6 +86,10 @@ public class TelaFuncionario {
         }
     }
     
+    /**
+     * Lista os funcionários
+     * @throws CadastroIncorretoException 
+     */
     private void listarFuncionarios() throws CadastroIncorretoException {
         ArrayList<Funcionario> funcionarios = ControladorFuncionario.getInstance().getFuncionarios();
         if (funcionarios.isEmpty())
@@ -79,6 +98,14 @@ public class TelaFuncionario {
             System.out.println("Matricula: " + funcRef.getMatricula()+" Cargo: "+funcRef.getCargo().getNomeCargo()+" Nome: "+funcRef.getNome());
         }
     }
+    
+    /**
+     * Cadastra um funcionário
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
     public void cadastraFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception{
         try {    
             if(!ControladorCargo.getInstance().getCargos().isEmpty()) {
@@ -123,6 +150,11 @@ public class TelaFuncionario {
         }   
     }
     
+    /**
+     * Altera o cargo de um funcionário
+     * @throws CadastroIncorretoException
+     * @throws Exception 
+     */
     public void alteraCargoFuncionario() throws CadastroIncorretoException, Exception{
         System.out.println("Digite a matricula do Funcionario que deseja alterar o Cargo");
         while (!sc.hasNextInt()) sc.next();
@@ -145,6 +177,10 @@ public class TelaFuncionario {
         }
     }
     
+    /**
+     * Deleta um funcionário
+     * @throws CadastroIncorretoException 
+     */
     public void deletarFuncionario() throws CadastroIncorretoException{
         System.out.println("Digite a matricula do Funcionario que deseja deletar");
         while (!sc.hasNextInt()) sc.next();
@@ -157,11 +193,17 @@ public class TelaFuncionario {
             return;
         }
     }
-
+    
+    /**
+     * Imprime uma mensagem de funcionário bloqueado
+     */
     public void mensagemFuncionarioBloqueado() {
         System.out.println("Após três acessos negados esse funcionário foi bloqueado");
     }
 
+    /**
+     * Imprime uma mensagem de funcionário deletado com sucesso
+     */
     public void mensagemFuncionarioDeletadoComSucesso() {
         System.out.println("\nFuncionário deletado com sucesso");
     }

@@ -10,7 +10,10 @@ package trabalho01;
  * @author Guilherme
  */
 public class FuncionarioComCargoException extends Exception {
-
+    /**
+     * Trata exceçoes quando há funcionários com determinado cargo
+     * @param erro 
+     */
     public FuncionarioComCargoException(String erro) {
         super(erro);
     }
