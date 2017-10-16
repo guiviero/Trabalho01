@@ -31,7 +31,7 @@ public class TelaAcesso {
         return instance;
     }
         
-    public void exibeTela() {
+    public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Acessos!");
@@ -45,7 +45,7 @@ public class TelaAcesso {
         } while(opcao != -1);
     }
     
-    public void trataOpcao(int opcao) {
+    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
         switch(opcao){
         case 1:
             ControladorAcesso.getInstance().tentativaDeAcesso(opcao);
@@ -61,7 +61,7 @@ public class TelaAcesso {
         }
     }
     
-    public void acessarSetorFinanceiro() throws CadastroIncorretoException{
+    public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
         int matricula = sc.nextInt();
         ControladorAcesso.getInstance().tentativaDeAcesso(matricula);

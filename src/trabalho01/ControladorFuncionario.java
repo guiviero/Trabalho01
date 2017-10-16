@@ -100,7 +100,7 @@ public class ControladorFuncionario {
         return dataConvertida;
     }
 
-    public void exibeTelaFuncionario() {
+    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
         tela.exibeTela();
     }
 }

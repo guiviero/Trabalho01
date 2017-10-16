@@ -5,6 +5,7 @@
  */
 package trabalho01;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 /**
@@ -13,12 +14,13 @@ import java.util.Scanner;
  */
 public class TelaPrincipal {
     private Scanner sc;
+    private static TelaPrincipal instance;
     
     public TelaPrincipal() {
         this.sc = new Scanner(System.in);
     }
     
-    public void exibeTela() throws CadastroIncorretoException {
+    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo ao sistema!");;
@@ -36,7 +38,8 @@ public class TelaPrincipal {
         
     }
     
-    public void trataOpcao(int opcao) throws CadastroIncorretoException{
+    
+    public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException{
         switch(opcao){
         case 1:
             ControladorPrincipal.getInstance().exibeTelaFuncionario();
@@ -53,5 +56,13 @@ public class TelaPrincipal {
         default:
             break;
         }
+    }
+    
+    public static TelaPrincipal getInstance() {
+        if(instance == null) {
+            instance = new TelaPrincipal();
+        }
+        
+        return instance;
     }
 }

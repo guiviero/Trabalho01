@@ -44,24 +44,24 @@ public class ControladorPrincipal {
         return instance;
     }
     
-    public void exibeTelaFuncionario() {
-        ctrlFuncionario.exibeTelaFuncionario();
+    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+        ControladorFuncionario.getInstance().exibeTelaFuncionario();
     }
 
-    public void exibeTelaCargo() throws CadastroIncorretoException {
-        ctrlCargo.exibeTelaCargo();
+    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException {
+        ControladorCargo.getInstance().exibeTelaCargo();
     }
 
-    public void exibeTelaAcesso() {
-        ctrlAcesso.exibeTelaAcesso();
+    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+        ControladorAcesso.getInstance().exibeTelaAcesso();
     }
 
-    public void exibeTelaRelatório() {
+    public void exibeTelaRelatório() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
         ControladorRelatorio.getInstance().exibeTelaRelatorio();
     }
     
-    public void exibeTelaPrincipal() throws CadastroIncorretoException {
-        tela.exibeTela();
+    public void exibeTelaPrincipal() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+        TelaPrincipal.getInstance().exibeTela();
     }
     
     /*public void horarioDoSistema() {

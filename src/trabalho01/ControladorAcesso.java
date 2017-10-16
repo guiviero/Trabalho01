@@ -137,7 +137,7 @@ public class ControladorAcesso {
         return acessosBloqueados;
     }
 
-    public void exibeTelaAcesso() {
+    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
         tela.exibeTela();
     }
     

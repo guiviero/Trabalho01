@@ -5,6 +5,7 @@
  */
 package trabalho01;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,7 +35,7 @@ public class ControladorRelatorio {
     }
     
         
-    public void exibeTelaRelatorio() {
+    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
         TelaRelatorio.getInstance().exibeTela();
     }
 

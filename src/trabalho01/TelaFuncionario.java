@@ -7,6 +7,7 @@ package trabalho01;
 
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 /**
@@ -31,7 +32,7 @@ public class TelaFuncionario {
         return instance;
     }
     
-    public void exibeTela() {
+    public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Funcionarios!");;
@@ -44,12 +45,11 @@ public class TelaFuncionario {
             System.out.println("Selecione uma opção:");
             opcao = sc.nextInt();
             trataOpcao(opcao);
-        } while(opcao != 0);     
-        System.exit(0);
+        } while(opcao != -1);     
         
     }
     
-    public void trataOpcao(int opcao) throws ParseException{
+    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException{
         switch(opcao){
         case 1:
             cadastraFuncionario();
@@ -61,20 +61,30 @@ public class TelaFuncionario {
             deletarFuncionario();
             break;
         case 4:
-            ControladorFuncionario.getInstance().getFuncionarios();
+            listarFuncionarios();
+            break;
+        case 0:
+            ControladorPrincipal.getInstance().exibeTelaPrincipal();
             break;
         default:
             break;
         }
     }
     
-    public void cadastraFuncionario() throws ParseException{
-        System.out.println("Digite o nome do Funcionario");
-            String nome = sc.nextLine();
+    private void listarFuncionarios() throws CadastroIncorretoException {
+        ArrayList<Funcionario> funcionarios = ControladorFuncionario.getInstance().getFuncionarios();
+        for (Funcionario funcRef : funcionarios) {
+            System.out.println("Matricula: " + funcRef.getMatricula()+" Cargo: "+funcRef.getCargo().getNomeCargo()+" Nome: "+funcRef.getNome());
+        }
+    }
+    public void cadastraFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException{
+        if(!ControladorCargo.getInstance().getCargos().isEmpty()) {
+            System.out.println("Digite o nome do Funcionario");
+            String nome = sc.next();
             
             System.out.println("Digite a data de nascimento do Funcionario"+
                                 "\n__/__/____");
-            String dataNascimento = sc.nextLine();
+            String dataNascimento = sc.next();
             ControladorFuncionario.getInstance().converterData(dataNascimento);
             
             System.out.println("Digite o telefone do Funcionario");
@@ -84,6 +94,7 @@ public class TelaFuncionario {
             double salario = sc.nextDouble();
             
             System.out.println("Digite o codigo do cargo do Funcionario");
+            
             ControladorCargo.getInstance().exibeCargos();
             int codigo = sc.nextInt();
             Cargo cargo = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
@@ -95,6 +106,11 @@ public class TelaFuncionario {
             int cpf = sc.nextInt();
             
             ControladorFuncionario.getInstance().cadastrarFuncionario(nome, dataNascimento, telefone, salario, cargo, cpf);
+            } else {
+                System.out.println("Não há cargos cadastrados");
+                exibeTela();
+            } 
+           
     }
     
     public void alteraCargoFuncionario() throws CadastroIncorretoException{
@@ -102,14 +118,15 @@ public class TelaFuncionario {
         int matricula = sc.nextInt();
         Funcionario func = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matricula);
         if(func != null){
-            System.out.println("Digite o codigo do cargo do Funcionario");
+            System.out.println("Digite o codigo do novo cargo do Funcionario");
             ControladorCargo.getInstance().exibeCargos();
             int codigo = sc.nextInt();
             Cargo cargo = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
-                if(cargo == null){
-                    new Exception ("Codigo invalido");
-                }else{
+                if(cargo != null){
                     ControladorFuncionario.getInstance().alterarCargoFuncionarioPelaMatricula(matricula, cargo);
+                    System.out.println("Cargo alterado com sucesso ");
+                }else{
+                    new Exception ("Codigo invalido");
                 }  
         }else if(func == null){
                 new CadastroIncorretoException("Esse funcionario não existe no nosso sistema");

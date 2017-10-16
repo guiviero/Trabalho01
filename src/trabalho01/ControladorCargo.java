@@ -97,7 +97,7 @@ public class ControladorCargo {
     
     public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException{
         ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
-        listaFuncionarios = ctrlFuncionario.getFuncionarios();
+        listaFuncionarios = ControladorFuncionario.getInstance().getFuncionarios();
         for(Funcionario func : listaFuncionarios){
             if(func.getCargo().getCodigo() == codigoCargo){
                 throw new FuncionarioComCargoException("Existe Funcionarios com esse cargo");
@@ -136,7 +136,7 @@ public class ControladorCargo {
         this.ultimoCodigo = ultimoCodigo;
     }
     
-    public void exibeTelaCargo() throws CadastroIncorretoException{
+    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException{
         TelaCargo.getInstance().exibeTela();
     }
 }

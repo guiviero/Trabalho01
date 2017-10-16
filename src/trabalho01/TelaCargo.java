@@ -5,6 +5,7 @@
  */
 package trabalho01;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -30,7 +31,7 @@ public class TelaCargo {
         return instance;
     }
         
-    public void exibeTela() throws CadastroIncorretoException {
+    public void exibeTela() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Cargos!");;
@@ -46,7 +47,7 @@ public class TelaCargo {
             trataOpcao(opcao);
         } while(opcao != -1);
     }
-    public void trataOpcao(int opcao) throws CadastroIncorretoException {
+    public void trataOpcao(int opcao) throws CadastroIncorretoException, FuncionarioComCargoException, ParseException {
         switch(opcao){
         case 1:
             telaCadastraCargo();
@@ -104,29 +105,25 @@ public class TelaCargo {
         
     }
     
-    public void telaDeletaCargo() {
-	try {
-            if (!ControladorCargo.getInstance().haCargos()) {
-		return;
-            }
-            System.out.println("\nBem vindo a tela de remocao de cargos");
-            System.out.println("\nJa existe os cargos a seguir: ");
-            ControladorCargo.getInstance().exibeCargos();
-            System.out.println("\nInsira o codigo do cargo a ser deletado");
-            int codigo = this.sc.nextInt();
-            Cargo cargoARemover = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
-            if (cargoARemover == null) {
-                System.out.println("\nCargo inexistente");
-            } else {
-                ControladorCargo.getInstance().deletarCargoPeloCodigo(codigo);
-            }
-        } catch (Exception e) {
-            System.out.println("\nFormato incorreto de preenchimento");
-            this.sc.nextLine();
+    public void telaDeletaCargo() throws FuncionarioComCargoException {
+	
+        if (!ControladorCargo.getInstance().haCargos()) {
             return;
         }
-
-    }
+        System.out.println("\nBem vindo a tela de remocao de cargos");
+        System.out.println("\nJa existe os cargos a seguir: ");
+        ControladorCargo.getInstance().exibeCargos();
+        System.out.println("\nInsira o codigo do cargo a ser deletado");
+        int codigo = this.sc.nextInt();
+        Cargo cargoARemover = ControladorCargo.getInstance().buscarCargoPeloCodigo(codigo);
+        if (cargoARemover == null) {
+            System.out.println("\nCargo inexistente");
+        } else {
+        ControladorCargo.getInstance().deletarCargoPeloCodigo(codigo);
+        System.out.println("\nCargo deletado com sucesso");
+         
+        }
+    }  
     
     public void mensagemNaoHaCargos() {
 	System.out.println("Nao ha cargos cadastrados\n");
@@ -167,6 +164,7 @@ public class TelaCargo {
                         }
                         
                         ControladorCargo.getInstance().cadastraCargo(nomeCargo, NIVELACESSO);
+                        System.out.println("\nCargo cadastrado com sucesso! ");
                         
                         for(Cargo cargoRef: ControladorCargo.getInstance().getCargos()){
                             if(cargoRef.getNomeCargo().equals(nomeCargo) && cargoRef.getNIVELACESSO().equals(NIVELACESSO)){
