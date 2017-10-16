@@ -82,7 +82,7 @@ public class TelaAcesso {
      * @throws CadastroIncorretoException
      * @throws ParseException 
      */
-    public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException{
+    public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException, Exception{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
         while (!sc.hasNextInt()) sc.next();
         int matricula = sc.nextInt();

@@ -54,11 +54,11 @@ public class Funcionario extends Pessoa{
         this.nascimento = nascimento;
     }
 
-    public int getTelefone() {
+    public double getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(double telefone) {
         this.telefone = telefone;
     }
 
@@ -78,11 +78,11 @@ public class Funcionario extends Pessoa{
         this.cargo = cargo;
     }
 
-    public int getCpf() {
+    public double getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(double cpf) {
         this.cpf = cpf;
     }
 

@@ -36,7 +36,7 @@ public class ControladorAcesso {
      * @param matriculaFuncionario matricula do funcionário que quer tentar acessar
      * @throws ParseException 
      */
-    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException {
+    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException, FuncionarioComCargoException, Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matriculaFuncionario);
         if(funcionario == null){
             this.acessosSemMatricula++;
