@@ -20,21 +20,13 @@ public class ControladorPrincipal {
     
     private static ControladorPrincipal instance;
     
-    private ControladorFuncionario ctrlFuncionario;
-    private ControladorCargo ctrlCargo;
-    private ControladorAcesso ctrlAcesso;
-    private ControladorRelatorio ctrlRelatorio;
-    private TelaPrincipal tela;
     private Scanner sc;
     private Date horarioDoSistema;
     
     private ControladorPrincipal (){
-        this.tela = new TelaPrincipal();
-        this.ctrlCargo = ControladorCargo.getInstance();
         this.sc = new Scanner(System.in);
         this.horarioDoSistema = new Date();
     }
-    
     
     public static ControladorPrincipal getInstance() {
         if(instance == null) {
@@ -44,38 +36,61 @@ public class ControladorPrincipal {
         return instance;
     }
     
-    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+    /**
+     * Exibe a tela de funcionarios
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         ControladorFuncionario.getInstance().exibeTelaFuncionario();
     }
 
-    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException {
+    /**
+     * Exibe a tela de cargos
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws ParseException
+     * @throws Exception 
+     */
+    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception {
         ControladorCargo.getInstance().exibeTelaCargo();
     }
 
-    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+    /**
+     * Exibe a tela de acesso
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         ControladorAcesso.getInstance().exibeTelaAcesso();
     }
 
-    public void exibeTelaRelatório() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    /**
+     * Exibe a tela de relatório
+     * @throws CadastroIncorretoException
+     * @throws ParseException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void exibeTelaRelatório() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ControladorRelatorio.getInstance().exibeTelaRelatorio();
     }
     
-    public void exibeTelaPrincipal() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    /**
+     * Exibe a tela principal
+     * @throws CadastroIncorretoException
+     * @throws ParseException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void exibeTelaPrincipal() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         TelaPrincipal.getInstance().exibeTela();
     }
     
-    /*public void horarioDoSistema() {
-        System.out.println("Seja bem vindo, para iniciar o sistema digite o horario dele: (HH:mm)");
-        String horario = sc.nextLine();
-        try {
-            horarioDoSistema = converterStringEmHora(horario);
-        } catch (ParseException ex) {
-            new Exception("Horário Inválido");
-        }
-        setHorarioDoSistema(horarioDoSistema);
-        
-    }
-    */
     public Date getHorarioDoSistema() {
         return horarioDoSistema;
     }
@@ -84,34 +99,56 @@ public class ControladorPrincipal {
         this.horarioDoSistema = horarioDoSistema;
     }
     
+    /**
+     * Converte um string em hora do tipo Date
+     * @param hora
+     * @return retorna um Date
+     * @throws ParseException 
+     */
     public Date converterStringEmHora(String hora) throws ParseException{
         SimpleDateFormat horaSimples = new SimpleDateFormat("HH:mm");
         Date horaConvertida = new Date();
         try {
             horaConvertida = horaSimples.parse(hora);
         } catch (ParseException e) {
-            System.err.println("Horário Inválido");;
+            throw new ParseException("horario errado", 12);
+
         }
         return horaConvertida;
     }
     
+    /**
+     * Converte Date em uma hora do tipo string
+     * @param date
+     * @return retorna uma hora formatada em string
+     */
     public String converterHoraEmString (Date date) {
         SimpleDateFormat horaSimples = new SimpleDateFormat("HH:mm");
         String horaEmString = horaSimples.format(date);
         return horaEmString;
     }
     
+    /**
+     * Metodo utilizado para controlar o horário do sistema
+     * @throws Exception 
+     */
     public void horarioDoSistema() throws Exception {
-        System.out.println("Seja bem vindo, para iniciar o sistema digite o horario dele:");
+        
+        System.out.println("\nDigite o horário do sistema:");
         System.out.println("Ano:");
+        while (!sc.hasNextInt()) sc.next();
         int ano = sc.nextInt()-1900;
         System.out.println("Mes:");
+        while (!sc.hasNextInt()) sc.next();
         int mes = sc.nextInt();
         System.out.println("Dia:");
+        while (!sc.hasNextInt()) sc.next();
         int dia = sc.nextInt();
         System.out.println("Hora:");
+        while (!sc.hasNextInt()) sc.next();
         int hora = sc.nextInt();
         System.out.println("Minuto:");
+        while (!sc.hasNextInt()) sc.next();
         int minuto = sc.nextInt();
         
         try {

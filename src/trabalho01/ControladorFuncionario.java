@@ -18,12 +18,10 @@ public class ControladorFuncionario {
     
     private static ArrayList<Funcionario> funcionarios;
     private int ultimaMatricula = 10000;
-    private TelaFuncionario tela;
     private static ControladorFuncionario instance;
     
     private ControladorFuncionario() {
         this.funcionarios = new ArrayList<>();
-        this.tela = new TelaFuncionario();
     }
     
     public static ControladorFuncionario getInstance() {
@@ -33,16 +31,15 @@ public class ControladorFuncionario {
         return instance;
     }
     
-    public void inserirFuncionario(Funcionario funcionario) {
-        try {
-            this.verificaMatricula(funcionario.getMatricula());
-        } catch (CadastroIncorretoException e) {
-            System.out.println("Funcionario Existente");
-            return;
-        }
-	this.funcionarios.add(funcionario);
-    }
-    
+    /**
+     * Cadastra um novo funcionario e inseri no ArrayList de funcionarios
+     * @param nome nome do funcionário
+     * @param nascimento data de nascimento do funcionario
+     * @param telefone telefone do funcionario
+     * @param salario salario do funcionario
+     * @param cargo cargo do funcionario
+     * @param cpf cpf do funcionario
+     */
     public void cadastrarFuncionario(String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf) {
 	int errosAcesso = 0;
         int matricula = gerarMatricula();
@@ -52,6 +49,11 @@ public class ControladorFuncionario {
         }
     }
     
+    /**
+     * Altera o cargo de um funcionario ultilizando-se da sua matricula
+     * @param matriculaFuncionario matricula do funcionario que deseja alterar o cargo
+     * @param cargo novo cargo do funcionario
+     */
     public void alterarCargoFuncionarioPelaMatricula (int matriculaFuncionario, Cargo cargo) {
         for (Funcionario funcionario : this.funcionarios){
             if (funcionario.getMatricula() == matriculaFuncionario){
@@ -61,6 +63,11 @@ public class ControladorFuncionario {
         }
     }
     
+    /**
+     * Busca um funcionario utilizando de sua matricula
+     * @param matriculaFuncionario
+     * @return retorna um funcionario
+     */
     public Funcionario buscarFuncionarioPelaMatricula (int matriculaFuncionario) {
         for (Funcionario funcionario : this.funcionarios) {
             if (funcionario.getMatricula() == matriculaFuncionario) {
@@ -70,13 +77,22 @@ public class ControladorFuncionario {
 	return null;
     }
     
+    /**
+     * Deleta um funcionário utilizando a sua matrícula
+     * @param funcionario 
+     */
     public void deletarFuncionarioPelaMatricula (Funcionario funcionario) {
         if (funcionario != null && this.funcionarios.contains(funcionario)) {
             this.funcionarios.remove(funcionario);
+            TelaFuncionario.getInstance().mensagemFuncionarioDeletadoComSucesso();
 	}
     }
     
-    
+    /**
+     * Verifica a matrícula do funcionário
+     * @param matricula
+     * @throws CadastroIncorretoException 
+     */
     public void verificaMatricula(int matricula) throws CadastroIncorretoException {
 	for (Funcionario funcionario : this.funcionarios) {
             if (funcionario.getMatricula() == matricula) {
@@ -85,22 +101,55 @@ public class ControladorFuncionario {
 	}
     }
     
+    /**
+     * Gera uma matrícula automaticamente para ser usada nos funcionários
+     * @return retorna uma matrícula gerada automaticamente
+     */
     public int gerarMatricula() {
         this.ultimaMatricula++;
         return ultimaMatricula;
     }
-    
+   
     public ArrayList<Funcionario> getFuncionarios(){
         return this.funcionarios;
     }
     
+    /**
+     * Converte um string em data
+     * @param dataNascimento 
+     * @return retorna uma data convertida
+     * @throws ParseException 
+     */
     public Date converterData(String dataNascimento) throws ParseException{
         SimpleDateFormat dataSimples = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataConvertida = dataSimples.parse(dataNascimento);
+        Date dataConvertida = new Date();
+        try {
+            dataConvertida = dataSimples.parse(dataNascimento);
+        } catch (ParseException e) {
+            throw new ParseException("data errada", 12);
+        }
         return dataConvertida;
     }
-
-    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
-        tela.exibeTela();
+    
+    /**
+     * Exibe a tela de um funcionário
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+        TelaFuncionario.getInstance().exibeTela();
+    }
+    
+    
+    /**
+     * Verifica o número de acessos negados de um funcionário
+     * @param funcionario 
+     */
+    public void verificarNumeroAcessosNegados(Funcionario funcionario) {
+        if(funcionario.getErrosAcesso() == 3 && (funcionario.getCargo().getNIVELACESSO() == NivelAcesso.ESPECIAL
+                || funcionario.getCargo().getNIVELACESSO() == NivelAcesso.COMUM))
+            TelaFuncionario.getInstance().mensagemFuncionarioBloqueado();
     }
 }

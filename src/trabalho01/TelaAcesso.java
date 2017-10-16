@@ -14,8 +14,7 @@ import java.util.Scanner;
  * @author Guilherme
  */
 public class TelaAcesso {
-    
-    private ControladorAcesso owner;
+   
     private Scanner sc;
     private static TelaAcesso instance;
     
@@ -31,7 +30,7 @@ public class TelaAcesso {
         return instance;
     }
         
-    public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+    public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Acessos!");
@@ -40,18 +39,20 @@ public class TelaAcesso {
             System.out.println("2 - Lista de todos os acessos");
             System.out.println("0 - Voltar");
             System.out.println("Selecione uma opção:");
+            while (!sc.hasNextInt()) sc.next();
             opcao = sc.nextInt();
             trataOpcao(opcao);
         } while(opcao != -1);
     }
     
-    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
         switch(opcao){
         case 1:
-            ControladorAcesso.getInstance().tentativaDeAcesso(opcao);
+            acessarSetorFinanceiro();
+            break;
         case 2:
-            //Nesse metodo eu tive a ideia de pegar os dados da classe relatorio
-            ControladorRelatorio.getInstance().exibeTelaRelatorio();
+            TelaRelatorio.getInstance().listarAcessos();
+            exibeTela();
             break;
         case 0:
             ControladorPrincipal.getInstance().exibeTelaPrincipal();
@@ -63,6 +64,7 @@ public class TelaAcesso {
     
     public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
+        while (!sc.hasNextInt()) sc.next();
         int matricula = sc.nextInt();
         ControladorAcesso.getInstance().tentativaDeAcesso(matricula);
         

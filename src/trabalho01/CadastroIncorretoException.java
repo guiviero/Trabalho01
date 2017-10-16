@@ -11,6 +11,10 @@ package trabalho01;
  */
 public class CadastroIncorretoException extends Exception {
     
+    /**
+     * Trata exceção em casos de cadastro incorreto
+     * @param erro 
+     */
     public CadastroIncorretoException(String erro){
         super(erro);
     }

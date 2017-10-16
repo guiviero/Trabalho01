@@ -11,14 +11,14 @@ import java.util.Date;
  *
  * @author Guilherme
  */
-public class Cargo implements ICargo {
+public class Cargo {
     private String nomeCargo;
     private NivelAcesso NIVELACESSO;
     private int codigo;
     private Date horarioInicio;
     private Date horarioFinal;
 
-    public Cargo(String nomeCargo, int codigo, NivelAcesso NIVELACESSO) {
+    public Cargo(String nomeCargo, int codigo, NivelAcesso NIVELACESSO, Date horarioInicio, Date horarioFinal) {
         this.nomeCargo = nomeCargo;
         this.codigo = codigo;
         this.NIVELACESSO = NIVELACESSO;

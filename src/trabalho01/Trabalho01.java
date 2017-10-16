@@ -18,7 +18,7 @@ public class Trabalho01 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        
+        System.out.println("Bem vindo ao sistema!");
         ControladorPrincipal.getInstance().horarioDoSistema();
         ControladorPrincipal.getInstance().exibeTelaPrincipal();
         //System.out.println(ControladorPrincipal.getInstance().getHorarioDoSistema());

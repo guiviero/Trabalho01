@@ -20,7 +20,7 @@ public class TelaPrincipal {
         this.sc = new Scanner(System.in);
     }
     
-    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo ao sistema!");;
@@ -28,9 +28,11 @@ public class TelaPrincipal {
             System.out.println("1 - Menu de Funcionarios");
             System.out.println("2 - Menu de Cargos");
             System.out.println("3 - Menu de Acesso");
-            System.out.println("4 - Menu de Relatórios");            
+            System.out.println("4 - Menu de Relatórios");
+            System.out.println("5 - Alterar horário do sistema");
             System.out.println("0 - Encerrar");
             System.out.println("Selecione uma opção:");
+            while (!sc.hasNextInt()) sc.next();
             opcao = sc.nextInt();
             trataOpcao(opcao);
         } while(opcao != 0);     
@@ -39,7 +41,7 @@ public class TelaPrincipal {
     }
     
     
-    public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException{
+    public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception{
         switch(opcao){
         case 1:
             ControladorPrincipal.getInstance().exibeTelaFuncionario();
@@ -52,6 +54,9 @@ public class TelaPrincipal {
             break;
         case 4:
             ControladorPrincipal.getInstance().exibeTelaRelatório();
+            break;
+        case 5:
+            ControladorPrincipal.getInstance().horarioDoSistema();
             break;
         default:
             break;

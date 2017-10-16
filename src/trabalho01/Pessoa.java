@@ -5,12 +5,12 @@
  */
 package trabalho01;
 
-import java.util.Date;
-
 /**
  *
  * @author Guilherme
  */
-public interface ICargo {
-      
+public abstract class Pessoa {
+    private String nome;
+    private String nascimento;
+    private int cpf;
 }

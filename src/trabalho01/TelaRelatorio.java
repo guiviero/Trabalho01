@@ -21,7 +21,7 @@ public class TelaRelatorio {
         this.sc = new Scanner(System.in);
     }
     
-    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo a tela de relatórios!");
@@ -37,13 +37,14 @@ public class TelaRelatorio {
             System.out.println("9 - Buscar os acessos negados pela matrícula do funcionário");
             System.out.println("0 - Voltar ao menu principal");
             System.out.println("Selecione uma opção:");
+            while (!sc.hasNextInt()) sc.next();
             opcao = sc.nextInt();
             trataOpcao(opcao);
         } while(opcao != 0);     
         System.exit(0);        
     }
 
-    private void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         switch(opcao){
         case 1:
             listarFuncionarios();
@@ -53,6 +54,7 @@ public class TelaRelatorio {
             break;
         case 3:
             listarAcessos();
+            exibeTela();
             break;
         case 4:
             listarAcessosNegados();
@@ -79,85 +81,119 @@ public class TelaRelatorio {
         }
     }
 
-    private void listarFuncionarios() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    public void listarFuncionarios() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
         ArrayList<Funcionario> funcionarios = ControladorFuncionario.getInstance().getFuncionarios();
-        for (Funcionario funcRef : funcionarios) {
-            System.out.println(funcRef.getMatricula()+" "+funcRef.getCargo()+" "+funcRef.getNome());
+        if(funcionarios.isEmpty()){
+            System.out.println("Não há funcionários");
+        } else {
+            for (Funcionario funcRef : funcionarios) {
+                System.out.println("Mátricula: "+funcRef.getMatricula()+"| Cargo: "+funcRef.getCargo().getNomeCargo()+"| Funcionário: "+funcRef.getNome());
+            }
         }
-        exibeTela();
     }
 
-    private void listarCargos() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void listarCargos() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ArrayList<Cargo> cargos = ControladorCargo.getInstance().getCargos();
-        for (Cargo cargoRef : cargos) {
-            System.out.println(cargoRef.getCodigo()+" "+cargoRef.getNomeCargo());
+        if(cargos.isEmpty()){
+            System.out.println("Não há cargos");
+        } else {
+            for (Cargo cargoRef : cargos) {
+                System.out.println("Código: "+cargoRef.getCodigo()+"| Cargo: "+cargoRef.getNomeCargo());
+            }
         }
         exibeTela();
     }
 
-    private void listarAcessos() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    public void listarAcessos() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
         ArrayList<Acesso> acessos = ControladorAcesso.getInstance().getAcessos();
-        String acesso =  "";
-        for (Acesso acessoRef : acessos) {
-            if(acessoRef.isConseguiuAcessar())
-                acesso = "Conseguiu acessar";
-            else
-                acesso = "Não conseguiu acessar";
+        if(acessos.isEmpty()){
+            System.out.println("Não há acessos");
+        } else {
+            String acesso =  "";
+            for (Acesso acessoRef : acessos) {
+                if(acessoRef.isConseguiuAcessar())
+                  acesso = "Conseguiu acessar";
+                else
+                   acesso = "Não conseguiu acessar";
                 
-            System.out.println(acessoRef.getHorarioDeAcesso()+" "+acesso+" "+acessoRef.getFuncionario().getMatricula()+" "+acessoRef.getFuncionario().getNome());
+                System.out.println(acessoRef.getHorarioDeAcesso()+" | "+acesso+"| Matrícula: "+acessoRef.getFuncionario().getMatricula()+"| Funcionário: "+acessoRef.getFuncionario().getNome());
+            }
         }
-        exibeTela();
     }
     
-    private void listarAcessosNegados() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void listarAcessosNegados() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
+        if(acessosNegados.isEmpty()){
+            System.out.println("Não há acessos negados");
+        }
         for (Acesso acessoRef : acessosNegados) {
-            System.out.println(acessoRef.getHorarioDeAcesso()+" "+acessoRef.getMotivoNaoAcesso()+" "+acessoRef.getFuncionario().getMatricula()+" "+acessoRef.getFuncionario().getNome());
+            System.out.println(acessoRef.getHorarioDeAcesso()+"| Motivo: "+acessoRef.getMotivoNaoAcesso()+"| Funcionário "+acessoRef.getFuncionario().getMatricula()+" "+acessoRef.getFuncionario().getNome());
         }
         exibeTela();
     }
 
-    private void listarAcessosNegadosPorMatriculaInvalida() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void listarAcessosNegadosPorMatriculaInvalida() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         System.out.println("Foram feitas "+ControladorAcesso.getInstance().getAcessosNegadosMatriculaInexistente()+" tentativas de acesso com matrículas inexistentes.");
         exibeTela();
     }
 
-    private void listarAcessosNegadosSemAcesso() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void listarAcessosNegadosSemAcesso() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
+        int numeroDeImpressoes = 0;
         for (Acesso acessoRef : acessosNegados) {
             if(acessoRef.getMotivoNaoAcesso() == MotivoAcessoNegado.SEMACESSO)
-                System.out.println(acessoRef.getHorarioDeAcesso()+" "+acessoRef.getFuncionario().getMatricula()+" "+acessoRef.getFuncionario().getNome());
+                System.out.println(acessoRef.getHorarioDeAcesso()+"| Matricula: "+acessoRef.getFuncionario().getMatricula()+"| Funcionário: "+acessoRef.getFuncionario().getNome());
+                numeroDeImpressoes++;
+        }
+        if(numeroDeImpressoes == 0){
+            System.out.println("Não há acessos negados de funcionários sem acesso");
         }
         exibeTela();
     }
 
-    private void listarAcessosNegadosHorarioNaoPermitido() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void listarAcessosNegadosHorarioNaoPermitido() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
+        int numeroDeImpressoes = 0;
         for (Acesso acessoRef : acessosNegados) {
             if(acessoRef.getMotivoNaoAcesso() == MotivoAcessoNegado.HORARIONAOPERMITIDO)
-                System.out.println(acessoRef.getHorarioDeAcesso()+" "+acessoRef.getFuncionario().getMatricula()+" "+acessoRef.getFuncionario().getNome());
+                System.out.println(acessoRef.getHorarioDeAcesso()+"| Matrícula: "+acessoRef.getFuncionario().getMatricula()+"| Funcionário: "+acessoRef.getFuncionario().getNome());
+                numeroDeImpressoes++;
+        }
+        if(numeroDeImpressoes == 0){
+            System.out.println("Não há acessos negados por horário não permitido");
         }
         exibeTela();
     }
 
-    private void listarAcessosNegadosPelaMatricula() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {        
+    private void listarAcessosNegadosPelaMatricula() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {        
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
         int matriculaFuncionario;
+        int numeroDeImpressoes = 0;
         System.out.println("Digite a matrícula do funcionário:");
+        while (!sc.hasNextInt()) sc.next();
         matriculaFuncionario = sc.nextInt();
         for (Acesso acessoRef : acessosNegados){
             if(matriculaFuncionario == acessoRef.getFuncionario().getMatricula()){
-                System.out.println(acessoRef.getHorarioDeAcesso()+" "+acessoRef.getMotivoNaoAcesso()+" "+acessoRef.getFuncionario().getNome());
+                System.out.println(acessoRef.getHorarioDeAcesso()+"| Motivo: "+acessoRef.getMotivoNaoAcesso()+"| Funcionário: "+acessoRef.getFuncionario().getNome());
+                numeroDeImpressoes++;
             }
+        }
+        if(numeroDeImpressoes == 0){
+            System.out.println("Esse funcionário não tem nenhum acesso negado");
         }
         exibeTela();  
     }
 
-    private void listarAcessosNegadosAcessoBloqueado() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    private void listarAcessosNegadosAcessoBloqueado() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
+        int numeroDeImpressoes = 0;
         for (Acesso acessoRef : acessosNegados) {
             if(acessoRef.getMotivoNaoAcesso() == MotivoAcessoNegado.ACESSOBLOQUEADO)
-                System.out.println(acessoRef.getHorarioDeAcesso()+" "+acessoRef.getFuncionario().getErrosAcesso()+" "+acessoRef.getFuncionario().getMatricula()+" "+acessoRef.getFuncionario().getNome());
+                System.out.println(acessoRef.getHorarioDeAcesso()+"| Numero de erros do funcionário: "+acessoRef.getFuncionario().getErrosAcesso()+"| Matrícula: "+acessoRef.getFuncionario().getMatricula()+"| Funcionário: "+acessoRef.getFuncionario().getNome());
+                numeroDeImpressoes++;
+        }
+        if(numeroDeImpressoes == 0){
+            System.out.println("Não há acessos negados por acesso bloqueado");
         }
         exibeTela();
     }

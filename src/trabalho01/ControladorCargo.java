@@ -16,12 +16,10 @@ import trabalho01.ControladorFuncionario;
  *
  * @author Guilherme
  */
-public class ControladorCargo {
+public class ControladorCargo implements IControladorCargo {
     
-    private ControladorFuncionario ctrlFuncionario;
     private ArrayList<Cargo> cargos;
     private int ultimoCodigo;
-    private TelaCargo telaCargo;
     private static ControladorCargo instance;
     
     
@@ -38,28 +36,14 @@ public class ControladorCargo {
         return instance;
     }
     
-    /*public void inserirCargo(Cargo cargo) {
-        try {
-            this.verificaCodigo(cargo.getCodigo());
-        } catch (CadastroIncorretoException e) {
-            System.out.println("Cargo Existente");
-            //return;
-        }
-	this.cargos.add(cargo);
-    }*/
-    
-    public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO) {
+    @Override
+    public void cadastraCargo(String nomeCargo, NivelAcesso NIVELACESSO, Date horarioInicial, Date horarioFinal) {
         int codigo = gerarCodigo();
-        Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO);
+        Cargo novoCargo = new Cargo(nomeCargo, codigo, NIVELACESSO, horarioInicial, horarioFinal);
         this.cargos.add(novoCargo);
-        /*
-        for(Cargo cargoRef : cargos){
-            if(!(novoCargo.getNomeCargo().equalsIgnoreCase(cargoRef.getNomeCargo())) || novoCargo.getCodigo() != cargoRef.getCodigo()){
-                
-            }
-        }*/
     }
     
+    @Override
     public void exibeCargos() {
         if (this.cargos.isEmpty()) {
             TelaCargo.getInstance().mensagemNaoHaCargos();
@@ -70,15 +54,19 @@ public class ControladorCargo {
         }
     }
     
-    public Cargo buscarCargoPeloCodigo (int codigoCargo){
+    @Override
+    public Cargo buscarCargoPeloCodigo(int codigoCargo) throws Exception{  
         for(Cargo cargo : cargos){
             if(cargo.getCodigo() == codigoCargo){
                 return cargo;
             }
         }
+        TelaCargo.getInstance().mensagemCodigoInvalido();
+        TelaFuncionario.getInstance().exibeTela();
         return null;
     }
     
+    @Override
     public void alterarNomeCargoPeloCodigo (String novoNomeCargo, int codigoCargo){
         for(Cargo cargoRef : cargos){
             if(cargoRef.getCodigo() == codigoCargo){
@@ -87,6 +75,34 @@ public class ControladorCargo {
         }
     }
     
+    @Override
+    public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException, ParseException, Exception{
+            ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
+            listaFuncionarios = ControladorFuncionario.getInstance().getFuncionarios();
+            for(Funcionario func : listaFuncionarios){
+                if(func.getCargo().getCodigo() == codigoCargo){
+                    TelaCargo.getInstance().mensagemExisteFuncionarioNesteCargo();
+                    return;
+                }
+            }
+
+            for(Cargo cargo : cargos){
+                if(cargo.getCodigo() == codigoCargo){
+                    cargos.remove(cargo);
+                    TelaCargo.getInstance().mensagemCargoDeletadoComSucesso();
+                    TelaCargo.getInstance().exibeTela();
+                }
+            }  
+    }
+    
+    public ArrayList<Cargo> getCargos() {
+        return this.cargos;
+    } 
+    
+    /**
+     * Verifica se há cargos no ArrayList de cargos
+     * @return reotrna true se há cargos
+     */
     public boolean haCargos() {
 	if (this.cargos.isEmpty()) {
             TelaCargo.getInstance().mensagemNaoHaCargos();
@@ -95,34 +111,10 @@ public class ControladorCargo {
 	return true;
     }
     
-    public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException{
-        ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
-        listaFuncionarios = ControladorFuncionario.getInstance().getFuncionarios();
-        for(Funcionario func : listaFuncionarios){
-            if(func.getCargo().getCodigo() == codigoCargo){
-                throw new FuncionarioComCargoException("Existe Funcionarios com esse cargo");
-            }
-        }
-        
-        for(Cargo cargo : cargos){
-            if(cargo.getCodigo() == codigoCargo){
-                cargos.remove(cargo);
-            }
-        }        
-    }
-    
-    public ArrayList<Cargo> getCargos() {
-        return this.cargos;
-    } 
-
-    /*private void verificaCodigo(int codigo)throws CadastroIncorretoException {
-        for (Cargo cargo : this.cargos) {
-            if (cargo.getCodigo() == codigo) {
-		throw new CadastroIncorretoException("Codigo existente!");
-            }
-	}
-    }*/
-    
+    /**
+     * Gera os códigos do cargo automaticamente
+     * @return retorna um código
+     */
     public int gerarCodigo() {
         this.ultimoCodigo++;
         return ultimoCodigo;
@@ -136,7 +128,14 @@ public class ControladorCargo {
         this.ultimoCodigo = ultimoCodigo;
     }
     
-    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException{
+    /**
+     * Exibe a tela de cargos
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws ParseException
+     * @throws Exception 
+     */
+    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception{
         TelaCargo.getInstance().exibeTela();
     }
 }

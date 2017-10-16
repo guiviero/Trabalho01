@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Guilherme
  */
-public class Funcionario {
+public class Funcionario extends Pessoa{
     private int matricula;
     private String nome;
     private String nascimento;

@@ -30,7 +30,11 @@ public class Acesso {
     public Funcionario getFuncionario() {
         return funcionario;
     }
-
+    
+    /**
+     * Retorna se o funcionario conseguiu acessar
+     * @return true se conseguiu acessar
+     */
     public boolean isConseguiuAcessar() {
         return conseguiuAcessar;
     }
