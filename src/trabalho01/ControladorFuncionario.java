@@ -75,7 +75,6 @@ public class ControladorFuncionario {
             }
 	}
         TelaFuncionario.getInstance().mensagemMatriculaInvalida();
-        TelaFuncionario.getInstance().exibeTela();
 	return null;
     }
     

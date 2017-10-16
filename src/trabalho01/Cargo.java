@@ -22,8 +22,8 @@ public class Cargo {
         this.nomeCargo = nomeCargo;
         this.codigo = codigo;
         this.NIVELACESSO = NIVELACESSO;
-        this.horarioInicio = null;
-        this.horarioFinal = null;
+        this.horarioInicio = horarioInicio;
+        this.horarioFinal = horarioFinal;
     }
 
     public String getNomeCargo() {

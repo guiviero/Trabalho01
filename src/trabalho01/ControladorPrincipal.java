@@ -141,15 +141,35 @@ public class ControladorPrincipal {
         System.out.println("Mes:");
         while (!sc.hasNextInt()) sc.next();
         int mes = sc.nextInt();
+        if(mes < 0 || mes > 11 ){
+            System.out.println("Mes inexistente");
+            ControladorPrincipal.getInstance().horarioDoSistema();
+            return;
+        }
         System.out.println("Dia:");
         while (!sc.hasNextInt()) sc.next();
         int dia = sc.nextInt();
+        if(dia <= 0 || dia > 31 ){
+            System.out.println("Dia inexistente");
+            ControladorPrincipal.getInstance().horarioDoSistema();
+            return;
+        }
         System.out.println("Hora:");
         while (!sc.hasNextInt()) sc.next();
         int hora = sc.nextInt();
+        if(hora < 0 || hora > 23 ){
+            System.out.println("Horas apenas entre 00 e 23");
+            ControladorPrincipal.getInstance().horarioDoSistema();
+            return;
+        }
         System.out.println("Minuto:");
         while (!sc.hasNextInt()) sc.next();
         int minuto = sc.nextInt();
+        if(minuto < 0 || minuto > 59 ){
+            System.out.println("Minutos apenas entre 00 e 59");
+            ControladorPrincipal.getInstance().horarioDoSistema();
+            return;
+        }
         
         try {
             horarioDoSistema = new Date(ano, mes, dia, hora, minuto);

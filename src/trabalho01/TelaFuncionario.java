@@ -71,6 +71,7 @@ public class TelaFuncionario {
             break;
         case 2:
             alteraCargoFuncionario();
+            exibeTela();
             break;
         case 3:
             deletarFuncionario();
