@@ -76,7 +76,7 @@ public class ControladorPrincipal {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaRelatório() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
         ControladorRelatorio.getInstance().exibeTelaRelatorio();
     }
     
