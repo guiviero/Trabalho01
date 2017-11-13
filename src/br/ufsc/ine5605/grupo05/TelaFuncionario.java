@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Scanner;
  *
  * @author Guilherme
  */
-public class TelaFuncionario {
+public class TelaFuncionario implements Serializable{
 
     private Scanner sc;
     private static TelaFuncionario instance;

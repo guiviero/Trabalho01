@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
+
+import java.io.Serializable;
 
 /**
  *
  * @author Guilherme
  */
-public class Funcionario extends Pessoa{
+public class Funcionario extends Pessoa implements Serializable{
     private int matricula;
     private String nome;
     private String nascimento;

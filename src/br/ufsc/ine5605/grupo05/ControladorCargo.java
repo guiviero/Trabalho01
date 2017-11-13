@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-import trabalho01.ControladorFuncionario;
+import br.ufsc.ine5605.grupo05.ControladorFuncionario;
 /**
  *
  * @author Guilherme

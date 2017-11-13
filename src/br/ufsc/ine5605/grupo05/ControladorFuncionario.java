@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,12 +16,11 @@ import java.util.Date;
  */
 public class ControladorFuncionario {
     
-    private static ArrayList<Funcionario> funcionarios;
+    private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private int ultimaMatricula = 10000;
     private static ControladorFuncionario instance;
     
     private ControladorFuncionario() {
-        this.funcionarios = new ArrayList<>();
     }
     
     public static ControladorFuncionario getInstance() {
@@ -45,7 +44,7 @@ public class ControladorFuncionario {
         int matricula = gerarMatricula();
         if(cargo != null){
             Funcionario novoFuncionario = new Funcionario(matricula, nome, nascimento, telefone, salario, cargo, cpf, errosAcesso);
-            this.funcionarios.add(novoFuncionario);
+            funcionarioDAO.put(novoFuncionario);
         }
     }
     
@@ -55,7 +54,8 @@ public class ControladorFuncionario {
      * @param cargo novo cargo do funcionario
      */
     public void alterarCargoFuncionarioPelaMatricula (int matriculaFuncionario, Cargo cargo) {
-        for (Funcionario funcionario : this.funcionarios){
+        ArrayList<Funcionario> funcLista = (ArrayList<Funcionario>) funcionarioDAO.getList();
+        for (Funcionario funcionario : funcLista){
             if (funcionario.getMatricula() == matriculaFuncionario){
                 funcionario.setCargo(cargo);
                 break;
@@ -69,12 +69,18 @@ public class ControladorFuncionario {
      * @return retorna um funcionario
      */
     public Funcionario buscarFuncionarioPelaMatricula (int matriculaFuncionario) throws CadastroIncorretoException, FuncionarioComCargoException, Exception {
-        for (Funcionario funcionario : this.funcionarios) {
+        Funcionario funcionario = funcionarioDAO.get(ultimaMatricula);
+        if(funcionario !=  null){
+            return funcionario;
+        }
+        
+        
+        /*for (Funcionario funcionario : funcionarioDAO.getList()) {
             if (funcionario.getMatricula() == matriculaFuncionario) {
                 return funcionario;
             }
 	}
-        TelaFuncionario.getInstance().mensagemMatriculaInvalida();
+        TelaFuncionario.getInstance().mensagemMatriculaInvalida();*/
 	return null;
     }
     
@@ -83,8 +89,8 @@ public class ControladorFuncionario {
      * @param funcionario 
      */
     public void deletarFuncionarioPelaMatricula (Funcionario funcionario) {
-        if (funcionario != null && this.funcionarios.contains(funcionario)) {
-            this.funcionarios.remove(funcionario);
+        if (funcionario != null && funcionarioDAO.getList().contains(funcionario)) {
+            funcionarioDAO.getList().remove(funcionario);
             TelaFuncionario.getInstance().mensagemFuncionarioDeletadoComSucesso();
 	}
     }
@@ -95,7 +101,8 @@ public class ControladorFuncionario {
      * @throws CadastroIncorretoException 
      */
     public void verificaMatricula(int matricula) throws CadastroIncorretoException {
-	for (Funcionario funcionario : this.funcionarios) {
+        ArrayList<Funcionario> funcLista = (ArrayList<Funcionario>) funcionarioDAO.getList();
+	for (Funcionario funcionario : funcLista) {
             if (funcionario.getMatricula() == matricula) {
 		throw new CadastroIncorretoException("matricula existente!");
             }
@@ -112,7 +119,7 @@ public class ControladorFuncionario {
     }
    
     public ArrayList<Funcionario> getFuncionarios(){
-        return this.funcionarios;
+        return new ArrayList(funcionarioDAO.getList());
     }
     
     /**

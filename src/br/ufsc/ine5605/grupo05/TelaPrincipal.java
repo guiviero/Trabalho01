@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.text.ParseException;
 import java.util.Scanner;

@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 /**
  *
  * @author Guilherme
  */
-public class FuncionarioComCargoException extends Exception {
+public class CadastroIncorretoException extends Exception {
+    
     /**
-     * Trata exceçoes quando há funcionários com determinado cargo
+     * Trata exceção em casos de cadastro incorreto
      * @param erro 
      */
-    public FuncionarioComCargoException(String erro) {
+    public CadastroIncorretoException(String erro){
         super(erro);
     }
-    
 }
