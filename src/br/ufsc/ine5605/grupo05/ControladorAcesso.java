@@ -36,7 +36,7 @@ public class ControladorAcesso {
      * @param matriculaFuncionario matricula do funcionário que quer tentar acessar
      * @throws ParseException 
      */
-    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException, FuncionarioComCargoException, Exception {
+    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException, CadastroIncorretoException {
         Funcionario funcionario = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matriculaFuncionario);
         if(funcionario == null){
             this.acessosSemMatricula++;
@@ -152,7 +152,7 @@ public class ControladorAcesso {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException {
         TelaAcesso.getInstance().exibeTela();
     }
     

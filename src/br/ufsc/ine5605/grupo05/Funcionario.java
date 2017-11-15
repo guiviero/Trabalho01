@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Guilherme
  */
 public class Funcionario extends Pessoa implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int matricula;
     private String nome;
     private String nascimento;

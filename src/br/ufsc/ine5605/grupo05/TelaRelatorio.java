@@ -28,7 +28,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    public void exibeTela() throws CadastroIncorretoException, ParseException {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo a tela de relatórios!");
@@ -59,7 +59,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException {
         switch(opcao){
         case 1:
             listarFuncionarios();
@@ -102,7 +102,7 @@ public class TelaRelatorio {
      * @throws ParseException
      * @throws FuncionarioComCargoException 
      */
-    public void listarFuncionarios() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    public void listarFuncionarios() throws CadastroIncorretoException, ParseException {
         ArrayList<Funcionario> funcionarios = ControladorFuncionario.getInstance().getFuncionarios();
         if(funcionarios.isEmpty()){
             System.out.println("Não há funcionários");
@@ -120,7 +120,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarCargos() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void listarCargos() throws CadastroIncorretoException, ParseException {
         ArrayList<Cargo> cargos = ControladorCargo.getInstance().getCargos();
         if(cargos.isEmpty()){
             System.out.println("Não há cargos");
@@ -138,7 +138,7 @@ public class TelaRelatorio {
      * @throws ParseException
      * @throws FuncionarioComCargoException 
      */
-    public void listarAcessos() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    public void listarAcessos() throws CadastroIncorretoException, ParseException {
         ArrayList<Acesso> acessos = ControladorAcesso.getInstance().getAcessos();
         if(acessos.isEmpty()){
             System.out.println("Não há acessos");
@@ -162,7 +162,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarAcessosNegados() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void listarAcessosNegados() throws CadastroIncorretoException, ParseException {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
         if(acessosNegados.isEmpty()){
             System.out.println("Não há acessos negados");
@@ -180,7 +180,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarAcessosNegadosPorMatriculaInvalida() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void listarAcessosNegadosPorMatriculaInvalida() throws CadastroIncorretoException, ParseException{
         System.out.println("Foram feitas "+ControladorAcesso.getInstance().getAcessosNegadosMatriculaInexistente()+" tentativas de acesso com matrículas inexistentes.");
         exibeTela();
     }
@@ -192,7 +192,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarAcessosNegadosSemAcesso() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void listarAcessosNegadosSemAcesso() throws CadastroIncorretoException, ParseException {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
         int numeroDeImpressoes = 0;
         for (Acesso acessoRef : acessosNegados) {
@@ -213,7 +213,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarAcessosNegadosHorarioNaoPermitido() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void listarAcessosNegadosHorarioNaoPermitido() throws CadastroIncorretoException, ParseException {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
         int numeroDeImpressoes = 0;
         for (Acesso acessoRef : acessosNegados) {
@@ -234,7 +234,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarAcessosNegadosPelaMatricula() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {        
+    private void listarAcessosNegadosPelaMatricula() throws CadastroIncorretoException, ParseException {        
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
         int matriculaFuncionario;
         int numeroDeImpressoes = 0;
@@ -260,7 +260,7 @@ public class TelaRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    private void listarAcessosNegadosAcessoBloqueado() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    private void listarAcessosNegadosAcessoBloqueado() throws CadastroIncorretoException, ParseException {
         ArrayList<Acesso> acessosNegados = ControladorAcesso.getInstance().getAcessosNegados();
         int numeroDeImpressoes = 0;
         for (Acesso acessoRef : acessosNegados) {

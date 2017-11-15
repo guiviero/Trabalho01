@@ -36,6 +36,10 @@ public class ControladorPrincipal {
         return instance;
     }
     
+    
+    public void fechaTelaPrincipal(){
+	    TelaPrincipal.getInstance().setVisible(false);
+    }
     /**
      * Exibe a tela de funcionarios
      * @throws ParseException
@@ -43,7 +47,8 @@ public class ControladorPrincipal {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException {
+        this.fechaTelaPrincipal();
         ControladorFuncionario.getInstance().exibeTelaFuncionario();
     }
 
@@ -54,7 +59,7 @@ public class ControladorPrincipal {
      * @throws ParseException
      * @throws Exception 
      */
-    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception {
+    public void exibeTelaCargo() throws CadastroIncorretoException, ParseException {
         ControladorCargo.getInstance().exibeTelaCargo();
     }
 
@@ -65,7 +70,7 @@ public class ControladorPrincipal {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException {
         ControladorAcesso.getInstance().exibeTelaAcesso();
     }
 
@@ -76,7 +81,7 @@ public class ControladorPrincipal {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException {
         ControladorRelatorio.getInstance().exibeTelaRelatorio();
     }
     
@@ -87,7 +92,7 @@ public class ControladorPrincipal {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaPrincipal() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    public void exibeTelaPrincipal() throws CadastroIncorretoException, ParseException {
         TelaPrincipal.getInstance().exibeTela();
     }
     
@@ -130,9 +135,10 @@ public class ControladorPrincipal {
     
     /**
      * Metodo utilizado para controlar o horário do sistema
+     * @throws br.ufsc.ine5605.grupo05.CadastroIncorretoException
      * @throws Exception 
      */
-    public void horarioDoSistema() throws Exception {
+    public void horarioDoSistema() throws CadastroIncorretoException {
         
         System.out.println("\nDigite o horário do sistema:");
         System.out.println("Ano:");

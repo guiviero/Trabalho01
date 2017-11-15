@@ -37,7 +37,7 @@ public class TelaCargo {
      * @throws ParseException
      * @throws Exception 
      */    
-    public void exibeTela() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception {
+    public void exibeTela() throws CadastroIncorretoException, ParseException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Cargos!");;
@@ -63,7 +63,7 @@ public class TelaCargo {
      * @throws ParseException
      * @throws Exception 
      */
-    public void trataOpcao(int opcao) throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception {
+    public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException {
         switch(opcao){
         case 1:
             telaCadastraCargo();
@@ -92,7 +92,7 @@ public class TelaCargo {
      * Exibe o cargo através do código
      * @throws Exception 
      */
-    public void telaExibeCargoPeloCodigo() throws Exception{
+    public void telaExibeCargoPeloCodigo() throws CadastroIncorretoException, ParseException{
         System.out.println("\nBem vindo a tela de buscar cargo");
         System.out.println("\nDigite o código do cargo desejado");
         while (!sc.hasNextInt()) sc.next();
@@ -138,7 +138,7 @@ public class TelaCargo {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void telaDeletaCargo() throws FuncionarioComCargoException, Exception {
+    public void telaDeletaCargo() throws CadastroIncorretoException, ParseException {
 	
         if (!ControladorCargo.getInstance().haCargos()) {
             return;

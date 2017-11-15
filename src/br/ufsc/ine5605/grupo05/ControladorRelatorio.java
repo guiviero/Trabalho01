@@ -43,7 +43,7 @@ public class ControladorRelatorio {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */    
-    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException {
         TelaRelatorio.getInstance().exibeTela();
     }
 

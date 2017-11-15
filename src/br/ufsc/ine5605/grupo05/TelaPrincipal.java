@@ -6,6 +6,7 @@
  */
 package br.ufsc.ine5605.grupo05;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -15,9 +16,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,6 +68,7 @@ public class TelaPrincipal extends JFrame{
         
         btMenuFuncionario = new JButton();
         btMenuFuncionario.setText("Menu Funcionario");
+        btMenuFuncionario.setForeground(Color.BLUE);
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
         constraints.gridy = 1;
@@ -73,6 +78,7 @@ public class TelaPrincipal extends JFrame{
         
         btMenuCargo = new JButton();
         btMenuCargo.setText("Menu Cargo");
+        btMenuCargo.setForeground(Color.BLUE);
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -81,6 +87,7 @@ public class TelaPrincipal extends JFrame{
         
         btMenuAcesso = new JButton();
         btMenuAcesso.setText("Menu Acesso");
+        btMenuAcesso.setForeground(Color.BLUE);
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -111,7 +118,13 @@ public class TelaPrincipal extends JFrame{
         public void actionPerformed(ActionEvent e) {
             
             if(e.getActionCommand().equals(OpcoesMenuPrincipal.FUNCIONARIO.name())){
-                //ControladorPrincipal.getInstance().exibeTelaFuncionario();
+               /* try {
+                    ControladorPrincipal.getInstance().exibeTelaFuncionario();
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(null, "Cadastro Incorreto");
+                } catch (CadastroIncorretoException ex) {
+                    JOptionPane.showMessageDialog(null, "Cadastro Incorreto");
+                }*/
             } else if(e.getActionCommand().equals(OpcoesMenuPrincipal.CARGO.name())){
                 //ControladorPrincipal.getInstance().exibeTelaCargo();
             } else if(e.getActionCommand().equals(OpcoesMenuPrincipal.ACESSO.name())){
@@ -137,7 +150,7 @@ public class TelaPrincipal extends JFrame{
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTela() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception {
+    public void exibeTela() throws CadastroIncorretoException, ParseException {
         int opcao = 0;        
         do{
             System.out.println("\nBem vindo ao sistema!");;
@@ -165,7 +178,7 @@ public class TelaPrincipal extends JFrame{
      * @throws FuncionarioComCargoException
      * @throws Exception 
     */ 
-    public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException, FuncionarioComCargoException, Exception{
+    public void trataOpcao(int opcao) throws CadastroIncorretoException, ParseException{
         switch(opcao){
         case 1:
             ControladorPrincipal.getInstance().exibeTelaFuncionario();

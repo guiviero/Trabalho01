@@ -37,7 +37,7 @@ public class TelaAcesso {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */    
-    public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public void exibeTela() throws ParseException, CadastroIncorretoException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Acessos!");
@@ -60,7 +60,7 @@ public class TelaAcesso {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException {
         switch(opcao){
         case 1:
             acessarSetorFinanceiro();
@@ -82,7 +82,7 @@ public class TelaAcesso {
      * @throws CadastroIncorretoException
      * @throws ParseException 
      */
-    public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException, Exception{
+    public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
         while (!sc.hasNextInt()) sc.next();
         int matricula = sc.nextInt();

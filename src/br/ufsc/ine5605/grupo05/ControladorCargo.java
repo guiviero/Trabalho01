@@ -55,7 +55,7 @@ public class ControladorCargo implements IControladorCargo {
     }
     
     @Override
-    public Cargo buscarCargoPeloCodigo(int codigoCargo) throws Exception{  
+    public Cargo buscarCargoPeloCodigo(int codigoCargo) throws CadastroIncorretoException, ParseException{  
         for(Cargo cargo : cargos){
             if(cargo.getCodigo() == codigoCargo){
                 return cargo;
@@ -76,7 +76,7 @@ public class ControladorCargo implements IControladorCargo {
     }
     
     @Override
-    public void deletarCargoPeloCodigo (int codigoCargo) throws FuncionarioComCargoException, ParseException, Exception{
+    public void deletarCargoPeloCodigo (int codigoCargo) throws ParseException, CadastroIncorretoException{
             ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
             listaFuncionarios = ControladorFuncionario.getInstance().getFuncionarios();
             for(Funcionario func : listaFuncionarios){
@@ -135,7 +135,7 @@ public class ControladorCargo implements IControladorCargo {
      * @throws ParseException
      * @throws Exception 
      */
-    public void exibeTelaCargo() throws CadastroIncorretoException, FuncionarioComCargoException, ParseException, Exception{
+    public void exibeTelaCargo() throws CadastroIncorretoException, ParseException{
         TelaCargo.getInstance().exibeTela();
     }
 }

@@ -5,6 +5,7 @@
  */
 package br.ufsc.ine5605.grupo05;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author Lucas Falcão
  */
-public class FuncionarioDAO<K, T>{
+public class FuncionarioDAO implements Serializable{
     
     private HashMap<Integer, Funcionario> cacheFuncionarios = new HashMap<>();
     
@@ -29,7 +30,18 @@ public class FuncionarioDAO<K, T>{
     
     
     public FuncionarioDAO(){
-        load();
+        try{
+                FileInputStream fin = new  FileInputStream(this.fileName); // tenta abrir fluxo de dados
+                fin.close();
+            } catch(FileNotFoundException ex) {
+                //se deu ruim
+                new File(this.fileName);
+                this.persist();
+            } catch (IOException ex) {
+                System.out.println(ex);
+		      //Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.load();
     }
             
                     

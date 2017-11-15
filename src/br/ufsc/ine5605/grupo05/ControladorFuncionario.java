@@ -30,6 +30,29 @@ public class ControladorFuncionario {
         return instance;
     }
     
+    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException{
+        switch(opcao){
+        case 1:
+            TelaFuncionario.getInstance().cadastraFuncionario();
+            break;
+        case 2:
+            TelaFuncionario.getInstance().alteraCargoFuncionario();
+            TelaFuncionario.getInstance().exibeTela();
+            break;
+        case 3:
+            TelaFuncionario.getInstance().deletarFuncionario();
+            break;
+        case 4:
+            TelaFuncionario.getInstance().listarFuncionarios();
+            break;
+        case 0:
+            ControladorPrincipal.getInstance().exibeTelaPrincipal();
+            break;
+        default:
+            break;
+        }
+    }
+    
     /**
      * Cadastra um novo funcionario e inseri no ArrayList de funcionarios
      * @param nome nome do funcionário
@@ -68,7 +91,7 @@ public class ControladorFuncionario {
      * @param matriculaFuncionario
      * @return retorna um funcionario
      */
-    public Funcionario buscarFuncionarioPelaMatricula (int matriculaFuncionario) throws CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public Funcionario buscarFuncionarioPelaMatricula (int matriculaFuncionario) throws CadastroIncorretoException {
         Funcionario funcionario = funcionarioDAO.get(ultimaMatricula);
         if(funcionario !=  null){
             return funcionario;
@@ -146,7 +169,7 @@ public class ControladorFuncionario {
      * @throws FuncionarioComCargoException
      * @throws Exception 
      */
-    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException, Exception {
+    public void exibeTelaFuncionario() throws ParseException, CadastroIncorretoException {
         TelaFuncionario.getInstance().exibeTela();
     }
     
