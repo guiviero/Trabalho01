@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package java.awt;
 
 /**
  *
- * @author Guilherme
+ * @author Lucas Falcão
  */
-public class CadastroIncorretoException extends Exception {
+public class GridBagConstrains {
     
-    public CadastroIncorretoException(String erro){
-        super(erro);
-    }
 }

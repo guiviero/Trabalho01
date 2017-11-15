@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
-
-import java.util.Date;
+package br.ufsc.ine5605.grupo05;
 
 /**
  *
  * @author Guilherme
  */
-public interface ICargo {
-      
+public abstract class Pessoa {
+    private String nome;
+    private String nascimento;
+    private double cpf;
 }

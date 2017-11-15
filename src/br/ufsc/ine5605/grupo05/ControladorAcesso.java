@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,12 +16,9 @@ import java.util.Date;
 public class ControladorAcesso {
     private ArrayList<Acesso> acessos;
     private int acessosSemMatricula;
-    private ControladorCargo ctrlCargo;
-    private TelaAcesso tela;
     private static ControladorAcesso instance;
     
     private ControladorAcesso() {
-        this.tela = new TelaAcesso();
         this.acessos = new ArrayList<>();
         this.acessosSemMatricula = 0;
     }
@@ -34,19 +31,25 @@ public class ControladorAcesso {
         return instance;
     }
     
-    
-    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException {
+    /**
+     * Verifica a tentativa de acesso à sala do financeiro
+     * @param matriculaFuncionario matricula do funcionário que quer tentar acessar
+     * @throws ParseException 
+     */
+    public void tentativaDeAcesso(int matriculaFuncionario) throws ParseException, CadastroIncorretoException {
         Funcionario funcionario = ControladorFuncionario.getInstance().buscarFuncionarioPelaMatricula(matriculaFuncionario);
         if(funcionario == null){
             this.acessosSemMatricula++;
             TelaAcesso.getInstance().acessoNegado();
+            TelaAcesso.getInstance().exibeTela();
             
-        }else if (funcionario.getErrosAcesso()>=3){
+        }else if (funcionario.getErrosAcesso()>=3 && funcionario.getCargo().getNIVELACESSO() != NivelAcesso.NULO){
             Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, false);
             novoAcesso.setMotivoNaoAcesso(MotivoAcessoNegado.ACESSOBLOQUEADO);
             funcionario.setErrosAcessoAutomatico();
             this.acessos.add(novoAcesso);
             TelaAcesso.getInstance().acessoNegado();
+            ControladorFuncionario.getInstance().verificarNumeroAcessosNegados(funcionario);
             
         } else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.LIVRE)){
             Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, true);
@@ -59,6 +62,7 @@ public class ControladorAcesso {
             funcionario.setErrosAcessoAutomatico();
             this.acessos.add(novoAcesso);
             TelaAcesso.getInstance().acessoNegado();
+            ControladorFuncionario.getInstance().verificarNumeroAcessosNegados(funcionario);
             
         }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.COMUM)){
             if(ehHorarioComercial()){
@@ -71,10 +75,13 @@ public class ControladorAcesso {
                 funcionario.setErrosAcessoAutomatico();
                 this.acessos.add(novoAcesso);
                 TelaAcesso.getInstance().acessoNegado();
+                ControladorFuncionario.getInstance().verificarNumeroAcessosNegados(funcionario);
             }
             
         }else if(funcionario.getCargo().getNIVELACESSO().equals(NivelAcesso.ESPECIAL)){
-            if(ehHorarioEspecial(funcionario.getCargo().getHorarioInicio(), funcionario.getCargo().getHorarioFinal())) {
+            Date horarioInicial = funcionario.getCargo().getHorarioInicio();
+            Date horarioFinal = funcionario.getCargo().getHorarioFinal();
+            if(ehHorarioEspecial(horarioInicial, horarioFinal)) {
                 Acesso novoAcesso = new Acesso(ControladorPrincipal.getInstance().getHorarioDoSistema(), funcionario, true);
                 this.acessos.add(novoAcesso);
                 TelaAcesso.getInstance().acessoPermitido();
@@ -84,6 +91,7 @@ public class ControladorAcesso {
                 funcionario.setErrosAcessoAutomatico();
                 this.acessos.add(novoAcesso);
                 TelaAcesso.getInstance().acessoNegado();
+                ControladorFuncionario.getInstance().verificarNumeroAcessosNegados(funcionario);
             }
         }
         
@@ -137,10 +145,22 @@ public class ControladorAcesso {
         return acessosBloqueados;
     }
 
-    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
-        tela.exibeTela();
+    /**
+     * Exibe a tela de acesso
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void exibeTelaAcesso() throws ParseException, CadastroIncorretoException {
+        TelaAcesso.getInstance().exibeTela();
     }
     
+    /**
+     * Verifica se é horário comercial
+     * @return
+     * @throws ParseException 
+     */
     public boolean ehHorarioComercial() throws ParseException {
         String stringOitoHoras = "08:00";
         Date oitoHoras = ControladorPrincipal.getInstance().converterStringEmHora(stringOitoHoras);
@@ -162,6 +182,13 @@ public class ControladorAcesso {
         return false;
     }
     
+    /**
+     * Verifica se é data especial
+     * @param horarioInicial
+     * @param horarioFinal
+     * @return
+     * @throws ParseException 
+     */
     public boolean ehHorarioEspecial(Date horarioInicial, Date horarioFinal) throws ParseException {
         Date horarioSistema = ControladorPrincipal.getInstance().getHorarioDoSistema();
         String stringHorarioSimplificado = ControladorPrincipal.getInstance().converterHoraEmString(horarioSistema);

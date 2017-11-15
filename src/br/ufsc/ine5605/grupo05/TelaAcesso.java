@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -14,8 +14,7 @@ import java.util.Scanner;
  * @author Guilherme
  */
 public class TelaAcesso {
-    
-    private ControladorAcesso owner;
+   
     private Scanner sc;
     private static TelaAcesso instance;
     
@@ -30,8 +29,15 @@ public class TelaAcesso {
         }
         return instance;
     }
-        
-    public void exibeTela() throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+    
+    /**
+     * Exibe a tela de acesso
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */    
+    public void exibeTela() throws ParseException, CadastroIncorretoException {
         int opcao = 0;        
         do{
             System.out.println("\nMenu dos Acessos!");
@@ -40,18 +46,28 @@ public class TelaAcesso {
             System.out.println("2 - Lista de todos os acessos");
             System.out.println("0 - Voltar");
             System.out.println("Selecione uma opção:");
+            while (!sc.hasNextInt()) sc.next();
             opcao = sc.nextInt();
             trataOpcao(opcao);
         } while(opcao != -1);
     }
     
-    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException, FuncionarioComCargoException {
+    /**
+     * trata a opção da tela
+     * @param opcao
+     * @throws ParseException
+     * @throws CadastroIncorretoException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */
+    public void trataOpcao(int opcao) throws ParseException, CadastroIncorretoException {
         switch(opcao){
         case 1:
-            ControladorAcesso.getInstance().tentativaDeAcesso(opcao);
+            acessarSetorFinanceiro();
+            break;
         case 2:
-            //Nesse metodo eu tive a ideia de pegar os dados da classe relatorio
-            ControladorRelatorio.getInstance().exibeTelaRelatorio();
+            TelaRelatorio.getInstance().listarAcessos();
+            exibeTela();
             break;
         case 0:
             ControladorPrincipal.getInstance().exibeTelaPrincipal();
@@ -61,17 +77,29 @@ public class TelaAcesso {
         }
     }
     
+    /**
+     * Faz o acesso ao setor financeiro
+     * @throws CadastroIncorretoException
+     * @throws ParseException 
+     */
     public void acessarSetorFinanceiro() throws CadastroIncorretoException, ParseException{
         System.out.println("\n Bem vindo ao setor financeiro, para continuar digite a sua matricula:");
+        while (!sc.hasNextInt()) sc.next();
         int matricula = sc.nextInt();
         ControladorAcesso.getInstance().tentativaDeAcesso(matricula);
         
     }
     
+    /**
+     * Imprime uma mensagem se o acesso é permitido
+     */
     public void acessoPermitido() {
         System.out.println("Acesso permitido");
     }
     
+    /**
+     * Imprime uma mensagem se o acesso é negado
+     */
     public void acessoNegado() {
         System.out.println("Acesso negado");
     }

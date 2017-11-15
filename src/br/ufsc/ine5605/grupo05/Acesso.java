@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.util.Date;
 
@@ -30,7 +30,11 @@ public class Acesso {
     public Funcionario getFuncionario() {
         return funcionario;
     }
-
+    
+    /**
+     * Retorna se o funcionario conseguiu acessar
+     * @return true se conseguiu acessar
+     */
     public boolean isConseguiuAcessar() {
         return conseguiuAcessar;
     }

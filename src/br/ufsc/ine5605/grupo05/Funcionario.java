@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  *
  * @author Guilherme
  */
-public class Funcionario {
+public class Funcionario extends Pessoa implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int matricula;
     private String nome;
     private String nascimento;
-    private int telefone;
+    private double telefone;
     private double salario;
     private Cargo cargo;
-    private int cpf;
+    private double cpf;
     private int errosAcesso;
 
-    public Funcionario(int matricula, String nome, String nascimento, int telefone, double salario, Cargo cargo, int cpf, int errosAcesso) {
+    public Funcionario(int matricula, String nome, String nascimento, double telefone, double salario, Cargo cargo, double cpf, int errosAcesso) {
         this.matricula = matricula;
         this.nome = nome;
         this.nascimento = nascimento;
@@ -56,11 +57,11 @@ public class Funcionario {
         this.nascimento = nascimento;
     }
 
-    public int getTelefone() {
+    public double getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(double telefone) {
         this.telefone = telefone;
     }
 
@@ -80,11 +81,11 @@ public class Funcionario {
         this.cargo = cargo;
     }
 
-    public int getCpf() {
+    public double getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(double cpf) {
         this.cpf = cpf;
     }
 

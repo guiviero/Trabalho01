@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.util.Date;
 
@@ -11,19 +11,19 @@ import java.util.Date;
  *
  * @author Guilherme
  */
-public class Cargo implements ICargo {
+public class Cargo {
     private String nomeCargo;
     private NivelAcesso NIVELACESSO;
     private int codigo;
     private Date horarioInicio;
     private Date horarioFinal;
 
-    public Cargo(String nomeCargo, int codigo, NivelAcesso NIVELACESSO) {
+    public Cargo(String nomeCargo, int codigo, NivelAcesso NIVELACESSO, Date horarioInicio, Date horarioFinal) {
         this.nomeCargo = nomeCargo;
         this.codigo = codigo;
         this.NIVELACESSO = NIVELACESSO;
-        this.horarioInicio = null;
-        this.horarioFinal = null;
+        this.horarioInicio = horarioInicio;
+        this.horarioFinal = horarioFinal;
     }
 
     public String getNomeCargo() {

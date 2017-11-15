@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalho01;
+package br.ufsc.ine5605.grupo05;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -14,11 +14,9 @@ import java.util.Scanner;
  * @author Guilherme
  */
 public class ControladorRelatorio {
-    private TelaRelatorio tela;
     private static ControladorRelatorio instance;
     
     public ControladorRelatorio() {
-        this.tela = new TelaRelatorio();
     }
     
     public static ControladorRelatorio getInstance() {
@@ -29,13 +27,23 @@ public class ControladorRelatorio {
         return instance;
     }
     
+    /**
+     * Retorna um ArrayList de funcionarios
+     * @return 
+     */
     public ArrayList<Funcionario> listaFuncionarios(){
         ArrayList<Funcionario> listaFuncionarios = ControladorFuncionario.getInstance().getFuncionarios();
         return listaFuncionarios;
     }
     
-        
-    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException, FuncionarioComCargoException {
+    /**
+     * Exibe a tela de relatórios
+     * @throws CadastroIncorretoException
+     * @throws ParseException
+     * @throws FuncionarioComCargoException
+     * @throws Exception 
+     */    
+    public void exibeTelaRelatorio() throws CadastroIncorretoException, ParseException {
         TelaRelatorio.getInstance().exibeTela();
     }
 
